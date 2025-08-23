@@ -9,65 +9,6 @@ configurable string DB_USERNAME = "root";
 configurable string DB_PASSWORD = "Ashen#321";
 configurable string DB_NAME = "school_performance";
 
-// User roles enum
-public enum UserRole {
-    MANAGER = "manager",
-    TEACHER = "teacher",
-    OFFICER = "officer",
-    GUEST = "guest"
-}
-
-// User record type
-public type User record {
-    int user_id?;
-    string email;
-    string password?;
-    UserRole role;
-    string created_at?;
-    string updated_at?;
-    string? deleted_at?;
-};
-
-// Profile record type
-public type Profile record {
-    int profile_id?;
-    string name;
-    string? phone_number?;
-    string? dob?;
-    int user_id;
-    string created_at?;
-    string updated_at?;
-    string? deleted_at?;
-};
-
-// JWT Payload type
-public type JwtPayload record {
-    int user_id;
-    string email;
-    UserRole role;
-    int exp;
-    int iat;
-    string jti;
-};
-
-// Authentication response types
-public type LoginResponse record {
-    string access_token;
-    string refresh_token;
-    User user;
-    string message;
-};
-
-public type RefreshResponse record {
-    string access_token;
-    string message;
-};
-
-public type ErrorResponse record {
-    string message;
-    string 'error;
-};
-
 // Database connection class
 public isolated class DatabaseConnection {
     private final mysql:Client dbClient;
