@@ -1,34 +1,6 @@
 import ballerina/log;
 import ballerina/regex;
 
-// Request/Response types for API
-public type LoginRequest record {
-    string email;
-    string password;
-};
-
-public type RegisterRequest record {
-    string email;
-    string password;
-    string name;
-    string? phone_number?;
-    string? dob?;
-};
-
-public type RefreshTokenRequest record {
-    string refresh_token;
-};
-
-public type UserWithProfile record {
-    User user;
-    Profile? profile;
-};
-
-public type SuccessResponse record {
-    string message;
-    anydata data?;
-};
-
 // Authentication service class
 public isolated class AuthenticationService {
     
