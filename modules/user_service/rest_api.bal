@@ -76,8 +76,7 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer or guest
-        UserRole[] allowedRoles = ["officer", "guest"];
-        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, allowedRoles);
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
             return <http:Unauthorized>{
@@ -133,8 +132,7 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer or guest
-        UserRole[] allowedRoles = ["officer", "guest"];
-        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, allowedRoles);
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
             return <http:Unauthorized>{
@@ -190,8 +188,7 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer or guest
-        UserRole[] allowedRoles = ["officer", "guest"];
-        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, allowedRoles);
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
             return <http:Unauthorized>{
