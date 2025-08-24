@@ -26,7 +26,8 @@ dependencies = [
 ]
 modules = [
 	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel"},
-	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.authentication_service"}
+	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.authentication_service"},
+	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.user_service"}
 ]
 
 [[package]]
