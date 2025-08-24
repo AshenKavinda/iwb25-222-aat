@@ -1,6 +1,7 @@
 import ballerina/http;
 import ballerina/log;
 import school_performance_panel.authentication_service;
+import school_performance_panel.user_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -11,6 +12,7 @@ public function main() returns error? {
     // Attach services to the listener
     check httpListener.attach(authentication_service:getAuthService(), "/api/auth");
     check httpListener.attach(authentication_service:getHealthService(), "/api");
+    check httpListener.attach(user_service:getUserService(), "/api/user");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -20,5 +22,9 @@ public function main() returns error? {
     log:printInfo("  GET /api/auth/me - Get current user profile");
     log:printInfo("  POST /api/auth/validate - Validate access token");
     log:printInfo("  GET /api/health - Health check");
+    log:printInfo("  POST /api/user - Add user with profile");
+    log:printInfo("  PUT /api/user/{user_id} - Update user profile (no email/password)");
+    log:printInfo("  DELETE /api/user/{user_id} - Soft delete user");
+    log:printInfo("  POST /api/user/{user_id}/restore - Restore deleted user");
     log:printInfo("Authentication API is ready to accept requests");
 }
