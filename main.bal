@@ -23,5 +23,6 @@ public function main() returns error? {
     log:printInfo("  POST /api/auth/validate - Validate access token");
     log:printInfo("  GET /api/health - Health check");
     log:printInfo("  POST /api/user - Add user with profile");
+    log:printInfo("  PUT /api/user/{user_id} - Update user profile (no email/password)");
     log:printInfo("Authentication API is ready to accept requests");
 }

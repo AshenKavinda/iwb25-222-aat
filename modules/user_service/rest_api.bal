@@ -20,7 +20,7 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer
-        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, auth:OFFICER);
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
             return <http:Unauthorized>{
@@ -42,6 +42,62 @@ public service class UserRestService {
 
         // Proceed with adding user if authorization checks pass
         AddUserResponse|ErrorResponse|error result = addUserWithProfile(addUserReq);
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
+
+    // PUT /[int user_id] - Update user with profile (Only for officers and guests)
+    resource function put [int user_id](@http:Payload UpdateUserRequest updateUserReq, @http:Header string? authorization) 
+            returns UpdateUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, auth:OFFICER);
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with updating user if authorization checks pass
+        UpdateUserResponse|ErrorResponse|error result = updateUserWithProfile(user_id, updateUserReq);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{

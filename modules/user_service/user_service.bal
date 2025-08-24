@@ -17,3 +17,21 @@ public isolated function addUserWithProfile(AddUserRequest addUserReq) returns A
         data: result
     };
 }
+
+// Function to update user with profile (no password or email updates allowed)
+public isolated function updateUserWithProfile(int userId, UpdateUserRequest updateUserReq) returns UpdateUserResponse|ErrorResponse|error {
+    UserWithProfile|error result = dbConnection.updateUserWithProfile(
+        userId, updateUserReq?.role, updateUserReq?.name, 
+        updateUserReq?.phone_number, updateUserReq?.dob
+    );
+
+    if result is error {
+        log:printError("Failed to update user", 'error = result);
+        return error("Internal Server Error");
+    }
+
+    return {
+        message: "User updated successfully",
+        data: result
+    };
+}

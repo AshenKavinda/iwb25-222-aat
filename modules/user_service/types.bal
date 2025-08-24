@@ -56,3 +56,17 @@ public type AddUserResponse record {
     string message;
     UserWithProfile data;
 };
+
+// Update user request type (no password or email updates allowed)
+public type UpdateUserRequest record {
+    UserRole? role?;
+    string? name?;
+    string? phone_number?;
+    string? dob?;
+};
+
+// Update user response type
+public type UpdateUserResponse record {
+    string message;
+    UserWithProfile data;
+};

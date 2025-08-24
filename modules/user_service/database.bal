@@ -100,6 +100,92 @@ public isolated class DatabaseConnection {
         byte[] hashedBytes = crypto:hashSha256(password.toBytes());
         return hashedBytes.toBase16();
     }
+
+    // Update user with profile (no password or email updates allowed)
+    public isolated function updateUserWithProfile(int userId, UserRole? role, string? name, string? phoneNumber, string? dob) returns UserWithProfile|error {
+        // Start a transaction
+        sql:ExecutionResult _ = check self.dbClient->execute(`START TRANSACTION`);
+
+        // Update user role if provided
+        if role is UserRole {
+            sql:ParameterizedQuery userQuery = `UPDATE user SET role = ${role}, updated_at = NOW() WHERE user_id = ${userId}`;
+            sql:ExecutionResult userResult = check self.dbClient->execute(userQuery);
+            if userResult.affectedRowCount == 0 {
+                sql:ExecutionResult _ = check self.dbClient->execute(`ROLLBACK`);
+                return error("User not found or failed to update user");
+            }
+        }
+
+        // Update profile if any profile fields are provided
+        if name is string || phoneNumber is string || dob is string {
+            sql:ParameterizedQuery profileQuery;
+            if name is string && phoneNumber is string && dob is string {
+                profileQuery = `UPDATE profile SET name = ${name}, phone_number = ${phoneNumber}, dob = ${dob}, updated_at = NOW() WHERE user_id = ${userId}`;
+            } else if name is string && phoneNumber is string {
+                profileQuery = `UPDATE profile SET name = ${name}, phone_number = ${phoneNumber}, updated_at = NOW() WHERE user_id = ${userId}`;
+            } else if name is string && dob is string {
+                profileQuery = `UPDATE profile SET name = ${name}, dob = ${dob}, updated_at = NOW() WHERE user_id = ${userId}`;
+            } else if phoneNumber is string && dob is string {
+                profileQuery = `UPDATE profile SET phone_number = ${phoneNumber}, dob = ${dob}, updated_at = NOW() WHERE user_id = ${userId}`;
+            } else if name is string {
+                profileQuery = `UPDATE profile SET name = ${name}, updated_at = NOW() WHERE user_id = ${userId}`;
+            } else if phoneNumber is string {
+                profileQuery = `UPDATE profile SET phone_number = ${phoneNumber}, updated_at = NOW() WHERE user_id = ${userId}`;
+            } else {
+                profileQuery = `UPDATE profile SET dob = ${dob}, updated_at = NOW() WHERE user_id = ${userId}`;
+            }
+
+            sql:ExecutionResult profileResult = check self.dbClient->execute(profileQuery);
+            if profileResult.affectedRowCount == 0 {
+                sql:ExecutionResult _ = check self.dbClient->execute(`ROLLBACK`);
+                return error("Profile not found or failed to update profile");
+            }
+        }
+
+        // Commit transaction
+        sql:ExecutionResult _ = check self.dbClient->execute(`COMMIT`);
+
+        // Get updated user with profile
+        sql:ParameterizedQuery selectQuery = `
+            SELECT u.user_id, u.email, u.role, u.created_at, u.updated_at, u.deleted_at,
+                   p.profile_id, p.name, p.phone_number, p.dob, p.created_at as profile_created_at, 
+                   p.updated_at as profile_updated_at, p.deleted_at as profile_deleted_at
+            FROM user u 
+            LEFT JOIN profile p ON u.user_id = p.user_id 
+            WHERE u.user_id = ${userId}
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        record {|record {} value;|}? result = check resultStream.next();
+        check resultStream.close();
+
+        if result is () {
+            return error("Updated user not found");
+        }
+
+        record {} userData = result.value;
+        
+        return {
+            user: {
+                user_id: <int>userData["user_id"],
+                email: <string>userData["email"],
+                role: <UserRole>userData["role"],
+                created_at: userData["created_at"].toString(),
+                updated_at: userData["updated_at"].toString(),
+                deleted_at: userData["deleted_at"] is () ? () : userData["deleted_at"].toString()
+            },
+            profile: {
+                profile_id: <int>userData["profile_id"],
+                name: <string>userData["name"],
+                phone_number: userData["phone_number"] is () ? () : <string>userData["phone_number"],
+                dob: userData["dob"] is () ? () : <string>userData["dob"],
+                user_id: <int>userData["user_id"],
+                created_at: userData["profile_created_at"].toString(),
+                updated_at: userData["profile_updated_at"].toString(),
+                deleted_at: userData["profile_deleted_at"] is () ? () : userData["profile_deleted_at"].toString()
+            }
+        };
+    }
 }
 
 // Global database connection instance
