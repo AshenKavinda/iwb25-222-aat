@@ -1,20 +1,61 @@
 import ballerina/http;
+import school_performance_panel.authentication_service as auth;
+
 // User REST API service
 public service class UserRestService {
     *http:Service;
 
-    // POST / - Add user with profile
-    resource function post .(@http:Payload AddUserRequest addUserReq) 
-            returns AddUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError {
+    // POST / - Add user with profile (Only for officers)
+    resource function post .(@http:Payload AddUserRequest addUserReq, @http:Header string? authorization) 
+            returns AddUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, auth:OFFICER);
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with adding user if authorization checks pass
         AddUserResponse|ErrorResponse|error result = addUserWithProfile(addUserReq);
 
         if result is ErrorResponse {
-            return http:INTERNAL_SERVER_ERROR;
+            return <http:InternalServerError>{
+                body: result
+            };
         }
 
         if result is error {
-            return http:INTERNAL_SERVER_ERROR;
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
         }
 
         return result;
