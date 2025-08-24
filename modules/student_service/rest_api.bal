@@ -1,13 +1,13 @@
 import ballerina/http;
 import school_performance_panel.authentication_service as auth;
 
-// User REST API service
-public service class UserRestService {
+// Student REST API service
+public service class StudentRestService {
     *http:Service;
 
-    // POST / - Add user with profile (Only for officers)
-    resource function post .(@http:Payload AddUserRequest addUserReq, @http:Header string? authorization) 
-            returns AddUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+    // Add student - Only accessible by officer
+    resource function post .(@http:Payload AddStudentRequest addStudentReq, @http:Header string? authorization) 
+            returns AddStudentResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -20,9 +20,8 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer
-        UserRole[] roles = ["officer","guest"];
-        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, roles);
-
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
+        
         if roleCheck is auth:ErrorResponse {
             return <http:Unauthorized>{
                 body: {
@@ -41,8 +40,8 @@ public service class UserRestService {
             };
         }
 
-        // Proceed with adding user if authorization checks pass
-        AddUserResponse|ErrorResponse|error result = addUserWithProfile(addUserReq);
+        // Proceed with adding student if authorization checks pass
+        AddStudentResponse|ErrorResponse|error result = addStudent(addStudentReq);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -62,9 +61,9 @@ public service class UserRestService {
         return result;
     }
 
-    // PUT /[int user_id] - Update user with profile (Only for officers and guests)
-    resource function put [int user_id](@http:Payload UpdateUserRequest updateUserReq, @http:Header string? authorization) 
-            returns UpdateUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+    // Update student - Only accessible by officer
+    resource function put [int studentId](@http:Payload UpdateStudentRequest updateStudentReq, @http:Header string? authorization) 
+            returns UpdateStudentResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -76,7 +75,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -91,14 +90,14 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Proceed with updating user if authorization checks pass
-        UpdateUserResponse|ErrorResponse|error result = updateUserWithProfile(user_id, updateUserReq);
+        // Proceed with updating student if authorization checks pass
+        UpdateStudentResponse|ErrorResponse|error result = updateStudent(studentId, updateStudentReq);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -118,9 +117,9 @@ public service class UserRestService {
         return result;
     }
 
-    // DELETE /[int user_id] - Soft delete user (Only for officers and guests)
-    resource function delete [int user_id](@http:Header string? authorization) 
-            returns DeleteUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+    // Soft delete student - Only accessible by officer
+    resource function delete [int studentId](@http:Header string? authorization) 
+            returns DeleteStudentResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -132,7 +131,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -147,14 +146,14 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Proceed with soft deleting user if authorization checks pass
-        DeleteUserResponse|ErrorResponse|error result = softDeleteUser(user_id);
+        // Proceed with soft deleting student if authorization checks pass
+        DeleteStudentResponse|ErrorResponse|error result = softDeleteStudent(studentId);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -174,9 +173,9 @@ public service class UserRestService {
         return result;
     }
 
-    // POST /[int user_id]/restore - Restore soft deleted user (Only for officers and guests)
-    resource function post [int user_id]/restore(@http:Header string? authorization) 
-            returns RestoreUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+    // Restore student - Only accessible by officer
+    resource function post [int studentId]/restore(@http:Header string? authorization) 
+            returns RestoreStudentResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -188,7 +187,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -203,14 +202,14 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Proceed with restoring user if authorization checks pass
-        RestoreUserResponse|ErrorResponse|error result = restoreUser(user_id);
+        // Proceed with restoring student if authorization checks pass
+        RestoreStudentResponse|ErrorResponse|error result = restoreStudent(studentId);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -230,9 +229,9 @@ public service class UserRestService {
         return result;
     }
 
-    // GET / - Get all active users (Only for officers and guests)
+    // Get all students - Only accessible by officer
     resource function get .(@http:Header string? authorization) 
-            returns GetAllUsersResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
+            returns GetAllStudentsResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -244,7 +243,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -259,14 +258,14 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Proceed with getting all users if authorization checks pass
-        GetAllUsersResponse|ErrorResponse|error result = getAllUsersWithProfiles();
+        // Proceed with getting all students if authorization checks pass
+        GetAllStudentsResponse|ErrorResponse|error result = getAllStudents();
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -286,9 +285,9 @@ public service class UserRestService {
         return result;
     }
 
-    // GET /[int user_id] - Get user by ID (Only for officers and guests)
-    resource function get [int user_id](@http:Header string? authorization) 
-            returns GetUserByIdResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
+    // Get student by ID - Only accessible by officer
+    resource function get [int studentId](@http:Header string? authorization) 
+            returns GetStudentByIdResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -300,7 +299,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -315,14 +314,14 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Proceed with getting user by ID if authorization checks pass
-        GetUserByIdResponse|ErrorResponse|error result = getUserByIdWithProfile(user_id);
+        // Proceed with getting student by ID if authorization checks pass
+        GetStudentByIdResponse|ErrorResponse|error result = getStudentById(studentId);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -342,9 +341,9 @@ public service class UserRestService {
         return result;
     }
 
-    // GET /deleted - Get all deleted users (Only for officers and guests)
+    // Get deleted students - Only accessible by officer
     resource function get deleted(@http:Header string? authorization) 
-            returns GetDeletedUsersResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
+            returns GetDeletedStudentsResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -356,7 +355,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -371,14 +370,14 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Proceed with getting deleted users if authorization checks pass
-        GetDeletedUsersResponse|ErrorResponse|error result = getDeletedUsersWithProfiles();
+        // Proceed with getting deleted students if authorization checks pass
+        GetDeletedStudentsResponse|ErrorResponse|error result = getDeletedStudents();
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -398,9 +397,9 @@ public service class UserRestService {
         return result;
     }
 
-    // GET /search?email=<email_pattern> - Search users by email (Only for officers and guests)
-    resource function get search(string email, @http:Header string? authorization) 
-            returns SearchUsersByEmailResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+    // Search students by full name - Only accessible by officer
+    resource function get search(string name, @http:Header string? authorization) 
+            returns SearchStudentsByNameResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
         
         // Check if authorization header is present
         if authorization is () {
@@ -412,7 +411,7 @@ public service class UserRestService {
             };
         }
 
-        // Validate access token and check if user role is officer or guest
+        // Validate access token and check if user role is officer
         boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
         
         if roleCheck is auth:ErrorResponse {
@@ -427,24 +426,24 @@ public service class UserRestService {
         if roleCheck is boolean && !roleCheck {
             return <http:Forbidden>{
                 body: {
-                    message: "Access denied. Officer or Guest role required",
+                    message: "Access denied. Officer role required",
                     'error: "INSUFFICIENT_PRIVILEGES"
                 }
             };
         }
 
-        // Validate email parameter
-        if email.trim() == "" {
+        // Validate name parameter
+        if name.trim() == "" {
             return <http:BadRequest>{
                 body: {
-                    message: "Email parameter is required and cannot be empty",
+                    message: "Name parameter is required and cannot be empty",
                     'error: "INVALID_PARAMETER"
                 }
             };
         }
 
-        // Proceed with searching users by email if authorization checks pass
-        SearchUsersByEmailResponse|ErrorResponse|error result = searchUsersByEmailWithProfiles(email);
+        // Proceed with searching students by name if authorization checks pass
+        SearchStudentsByNameResponse|ErrorResponse|error result = searchStudentsByName(name);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{
@@ -465,7 +464,7 @@ public service class UserRestService {
     }
 }
 
-// Function to create and return the user service
-public isolated function getUserService() returns UserRestService {
-    return new UserRestService();
+// Function to create and return the student service
+public isolated function getStudentService() returns StudentRestService {
+    return new StudentRestService();
 }

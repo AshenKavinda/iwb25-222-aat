@@ -26,6 +26,7 @@ CREATE TABLE profile (
 CREATE TABLE student (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
     parent_nic VARCHAR(20) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
     dob DATE NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
@@ -96,7 +97,8 @@ CREATE TABLE student_subject_course (
 
 CREATE TABLE test (
     test_id INT AUTO_INCREMENT PRIMARY KEY,
-    title ENUM('tm1','tm2','tm3') NOT NULL,
+    t_name VARCHAR(255) NOT NULL,
+    t_type ENUM('tm1','tm2','tm3') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL DEFAULT NULL
