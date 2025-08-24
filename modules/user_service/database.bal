@@ -271,6 +271,178 @@ public isolated class DatabaseConnection {
             }
         };
     }
+
+    // Get all active users with profiles
+    public isolated function getAllUsers() returns UserWithProfile[]|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT u.user_id, u.email, u.role, u.created_at, u.updated_at, u.deleted_at,
+                   p.profile_id, p.name, p.phone_number, p.dob, p.created_at as profile_created_at, 
+                   p.updated_at as profile_updated_at, p.deleted_at as profile_deleted_at
+            FROM user u 
+            LEFT JOIN profile p ON u.user_id = p.user_id 
+            WHERE u.deleted_at IS NULL
+            ORDER BY u.created_at DESC
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        UserWithProfile[] users = [];
+
+        check from record {} userData in resultStream
+            do {
+                UserWithProfile userWithProfile = {
+                    user: {
+                        user_id: <int>userData["user_id"],
+                        email: <string>userData["email"],
+                        role: <UserRole>userData["role"],
+                        created_at: userData["created_at"].toString(),
+                        updated_at: userData["updated_at"].toString(),
+                        deleted_at: userData["deleted_at"] is () ? () : userData["deleted_at"].toString()
+                    },
+                    profile: userData["profile_id"] is () ? () : {
+                        profile_id: <int>userData["profile_id"],
+                        name: <string>userData["name"],
+                        phone_number: userData["phone_number"] is () ? () : <string>userData["phone_number"],
+                        dob: userData["dob"] is () ? () : <string>userData["dob"],
+                        user_id: <int>userData["user_id"],
+                        created_at: userData["profile_created_at"].toString(),
+                        updated_at: userData["profile_updated_at"].toString(),
+                        deleted_at: userData["profile_deleted_at"] is () ? () : userData["profile_deleted_at"].toString()
+                    }
+                };
+                users.push(userWithProfile);
+            };
+
+        return users;
+    }
+
+    // Get user by ID with profile
+    public isolated function getUserById(int userId) returns UserWithProfile|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT u.user_id, u.email, u.role, u.created_at, u.updated_at, u.deleted_at,
+                   p.profile_id, p.name, p.phone_number, p.dob, p.created_at as profile_created_at, 
+                   p.updated_at as profile_updated_at, p.deleted_at as profile_deleted_at
+            FROM user u 
+            LEFT JOIN profile p ON u.user_id = p.user_id 
+            WHERE u.user_id = ${userId} AND u.deleted_at IS NULL
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        record {|record {} value;|}? result = check resultStream.next();
+        check resultStream.close();
+
+        if result is () {
+            return error("User not found");
+        }
+
+        record {} userData = result.value;
+        
+        return {
+            user: {
+                user_id: <int>userData["user_id"],
+                email: <string>userData["email"],
+                role: <UserRole>userData["role"],
+                created_at: userData["created_at"].toString(),
+                updated_at: userData["updated_at"].toString(),
+                deleted_at: userData["deleted_at"] is () ? () : userData["deleted_at"].toString()
+            },
+            profile: userData["profile_id"] is () ? () : {
+                profile_id: <int>userData["profile_id"],
+                name: <string>userData["name"],
+                phone_number: userData["phone_number"] is () ? () : <string>userData["phone_number"],
+                dob: userData["dob"] is () ? () : <string>userData["dob"],
+                user_id: <int>userData["user_id"],
+                created_at: userData["profile_created_at"].toString(),
+                updated_at: userData["profile_updated_at"].toString(),
+                deleted_at: userData["profile_deleted_at"] is () ? () : userData["profile_deleted_at"].toString()
+            }
+        };
+    }
+
+    // Get all deleted users with profiles
+    public isolated function getDeletedUsers() returns UserWithProfile[]|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT u.user_id, u.email, u.role, u.created_at, u.updated_at, u.deleted_at,
+                   p.profile_id, p.name, p.phone_number, p.dob, p.created_at as profile_created_at, 
+                   p.updated_at as profile_updated_at, p.deleted_at as profile_deleted_at
+            FROM user u 
+            LEFT JOIN profile p ON u.user_id = p.user_id 
+            WHERE u.deleted_at IS NOT NULL
+            ORDER BY u.deleted_at DESC
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        UserWithProfile[] users = [];
+
+        check from record {} userData in resultStream
+            do {
+                UserWithProfile userWithProfile = {
+                    user: {
+                        user_id: <int>userData["user_id"],
+                        email: <string>userData["email"],
+                        role: <UserRole>userData["role"],
+                        created_at: userData["created_at"].toString(),
+                        updated_at: userData["updated_at"].toString(),
+                        deleted_at: userData["deleted_at"] is () ? () : userData["deleted_at"].toString()
+                    },
+                    profile: userData["profile_id"] is () ? () : {
+                        profile_id: <int>userData["profile_id"],
+                        name: <string>userData["name"],
+                        phone_number: userData["phone_number"] is () ? () : <string>userData["phone_number"],
+                        dob: userData["dob"] is () ? () : <string>userData["dob"],
+                        user_id: <int>userData["user_id"],
+                        created_at: userData["profile_created_at"].toString(),
+                        updated_at: userData["profile_updated_at"].toString(),
+                        deleted_at: userData["profile_deleted_at"] is () ? () : userData["profile_deleted_at"].toString()
+                    }
+                };
+                users.push(userWithProfile);
+            };
+
+        return users;
+    }
+
+    // Search users by email with profiles
+    public isolated function searchUsersByEmail(string emailPattern) returns UserWithProfile[]|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT u.user_id, u.email, u.role, u.created_at, u.updated_at, u.deleted_at,
+                   p.profile_id, p.name, p.phone_number, p.dob, p.created_at as profile_created_at, 
+                   p.updated_at as profile_updated_at, p.deleted_at as profile_deleted_at
+            FROM user u 
+            LEFT JOIN profile p ON u.user_id = p.user_id 
+            WHERE u.email LIKE ${emailPattern} AND u.deleted_at IS NULL
+            ORDER BY u.created_at DESC
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        UserWithProfile[] users = [];
+
+        check from record {} userData in resultStream
+            do {
+                UserWithProfile userWithProfile = {
+                    user: {
+                        user_id: <int>userData["user_id"],
+                        email: <string>userData["email"],
+                        role: <UserRole>userData["role"],
+                        created_at: userData["created_at"].toString(),
+                        updated_at: userData["updated_at"].toString(),
+                        deleted_at: userData["deleted_at"] is () ? () : userData["deleted_at"].toString()
+                    },
+                    profile: userData["profile_id"] is () ? () : {
+                        profile_id: <int>userData["profile_id"],
+                        name: <string>userData["name"],
+                        phone_number: userData["phone_number"] is () ? () : <string>userData["phone_number"],
+                        dob: userData["dob"] is () ? () : <string>userData["dob"],
+                        user_id: <int>userData["user_id"],
+                        created_at: userData["profile_created_at"].toString(),
+                        updated_at: userData["profile_updated_at"].toString(),
+                        deleted_at: userData["profile_deleted_at"] is () ? () : userData["profile_deleted_at"].toString()
+                    }
+                };
+                users.push(userWithProfile);
+            };
+
+        return users;
+    }
 }
 
 // Global database connection instance

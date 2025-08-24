@@ -228,6 +228,240 @@ public service class UserRestService {
 
         return result;
     }
+
+    // GET / - Get all active users (Only for officers and guests)
+    resource function get .(@http:Header string? authorization) 
+            returns GetAllUsersResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with getting all users if authorization checks pass
+        GetAllUsersResponse|ErrorResponse|error result = getAllUsersWithProfiles();
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
+
+    // GET /[int user_id] - Get user by ID (Only for officers and guests)
+    resource function get [int user_id](@http:Header string? authorization) 
+            returns GetUserByIdResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with getting user by ID if authorization checks pass
+        GetUserByIdResponse|ErrorResponse|error result = getUserByIdWithProfile(user_id);
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
+
+    // GET /deleted - Get all deleted users (Only for officers and guests)
+    resource function get deleted(@http:Header string? authorization) 
+            returns GetDeletedUsersResponse|ErrorResponse|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with getting deleted users if authorization checks pass
+        GetDeletedUsersResponse|ErrorResponse|error result = getDeletedUsersWithProfiles();
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
+
+    // GET /search?email=<email_pattern> - Search users by email (Only for officers and guests)
+    resource function get search(string email, @http:Header string? authorization) 
+            returns SearchUsersByEmailResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, "officer");
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Validate email parameter
+        if email.trim() == "" {
+            return <http:BadRequest>{
+                body: {
+                    message: "Email parameter is required and cannot be empty",
+                    'error: "INVALID_PARAMETER"
+                }
+            };
+        }
+
+        // Proceed with searching users by email if authorization checks pass
+        SearchUsersByEmailResponse|ErrorResponse|error result = searchUsersByEmailWithProfiles(email);
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
 }
 
 // Function to create and return the user service

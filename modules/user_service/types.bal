@@ -82,3 +82,27 @@ public type RestoreUserResponse record {
     string message;
     UserWithProfile data;
 };
+
+// Get all users response type
+public type GetAllUsersResponse record {
+    string message;
+    UserWithProfile[] data;
+};
+
+// Get user by ID response type
+public type GetUserByIdResponse record {
+    string message;
+    UserWithProfile data;
+};
+
+// Get deleted users response type
+public type GetDeletedUsersResponse record {
+    string message;
+    UserWithProfile[] data;
+};
+
+// Search users by email response type
+public type SearchUsersByEmailResponse record {
+    string message;
+    UserWithProfile[] data;
+};

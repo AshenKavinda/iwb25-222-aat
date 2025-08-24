@@ -71,3 +71,77 @@ public isolated function restoreUser(int userId) returns RestoreUserResponse|Err
         data: result
     };
 }
+
+// Function to get all users
+public isolated function getAllUsersWithProfiles() returns GetAllUsersResponse|ErrorResponse|error {
+    UserWithProfile[]|error result = dbConnection.getAllUsers();
+
+    if result is error {
+        log:printError("Failed to retrieve users", 'error = result);
+        return {
+            message: result.message(),
+            'error: "FETCH_ERROR"
+        };
+    }
+
+    return {
+        message: "Users retrieved successfully",
+        data: result
+    };
+}
+
+// Function to get user by ID
+public isolated function getUserByIdWithProfile(int userId) returns GetUserByIdResponse|ErrorResponse|error {
+    UserWithProfile|error result = dbConnection.getUserById(userId);
+
+    if result is error {
+        log:printError("Failed to retrieve user", 'error = result);
+        return {
+            message: result.message(),
+            'error: "USER_NOT_FOUND"
+        };
+    }
+
+    return {
+        message: "User retrieved successfully",
+        data: result
+    };
+}
+
+// Function to get all deleted users
+public isolated function getDeletedUsersWithProfiles() returns GetDeletedUsersResponse|ErrorResponse|error {
+    UserWithProfile[]|error result = dbConnection.getDeletedUsers();
+
+    if result is error {
+        log:printError("Failed to retrieve deleted users", 'error = result);
+        return {
+            message: result.message(),
+            'error: "FETCH_ERROR"
+        };
+    }
+
+    return {
+        message: "Deleted users retrieved successfully",
+        data: result
+    };
+}
+
+// Function to search users by email
+public isolated function searchUsersByEmailWithProfiles(string email) returns SearchUsersByEmailResponse|ErrorResponse|error {
+    // Add wildcard pattern for LIKE search
+    string emailPattern = "%" + email + "%";
+    UserWithProfile[]|error result = dbConnection.searchUsersByEmail(emailPattern);
+
+    if result is error {
+        log:printError("Failed to search users by email", 'error = result);
+        return {
+            message: result.message(),
+            'error: "SEARCH_ERROR"
+        };
+    }
+
+    return {
+        message: "Users found successfully",
+        data: result
+    };
+}
