@@ -76,7 +76,8 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer or guest
-        boolean|auth:ErrorResponse roleCheck = auth:hasRole(authorization, auth:OFFICER);
+        UserRole[] allowedRoles = ["officer", "guest"];
+        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, allowedRoles);
         
         if roleCheck is auth:ErrorResponse {
             return <http:Unauthorized>{
@@ -98,6 +99,120 @@ public service class UserRestService {
 
         // Proceed with updating user if authorization checks pass
         UpdateUserResponse|ErrorResponse|error result = updateUserWithProfile(user_id, updateUserReq);
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
+
+    // DELETE /[int user_id] - Soft delete user (Only for officers and guests)
+    resource function delete [int user_id](@http:Header string? authorization) 
+            returns DeleteUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        UserRole[] allowedRoles = ["officer", "guest"];
+        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, allowedRoles);
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with soft deleting user if authorization checks pass
+        DeleteUserResponse|ErrorResponse|error result = softDeleteUser(user_id);
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
+
+    // POST /[int user_id]/restore - Restore soft deleted user (Only for officers and guests)
+    resource function post [int user_id]/restore(@http:Header string? authorization) 
+            returns RestoreUserResponse|ErrorResponse|http:BadRequest|http:InternalServerError|http:Unauthorized|http:Forbidden {
+        
+        // Check if authorization header is present
+        if authorization is () {
+            return <http:Unauthorized>{
+                body: {
+                    message: "Authorization header is required",
+                    'error: "MISSING_AUTHORIZATION"
+                }
+            };
+        }
+
+        // Validate access token and check if user role is officer or guest
+        UserRole[] allowedRoles = ["officer", "guest"];
+        boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, allowedRoles);
+        
+        if roleCheck is auth:ErrorResponse {
+            return <http:Unauthorized>{
+                body: {
+                    message: roleCheck.message,
+                    'error: roleCheck.'error
+                }
+            };
+        }
+
+        if roleCheck is boolean && !roleCheck {
+            return <http:Forbidden>{
+                body: {
+                    message: "Access denied. Officer or Guest role required",
+                    'error: "INSUFFICIENT_PRIVILEGES"
+                }
+            };
+        }
+
+        // Proceed with restoring user if authorization checks pass
+        RestoreUserResponse|ErrorResponse|error result = restoreUser(user_id);
 
         if result is ErrorResponse {
             return <http:InternalServerError>{

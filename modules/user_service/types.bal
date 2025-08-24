@@ -70,3 +70,15 @@ public type UpdateUserResponse record {
     string message;
     UserWithProfile data;
 };
+
+// Delete user response type
+public type DeleteUserResponse record {
+    string message;
+    int user_id;
+};
+
+// Restore user response type
+public type RestoreUserResponse record {
+    string message;
+    UserWithProfile data;
+};

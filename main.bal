@@ -24,5 +24,7 @@ public function main() returns error? {
     log:printInfo("  GET /api/health - Health check");
     log:printInfo("  POST /api/user - Add user with profile");
     log:printInfo("  PUT /api/user/{user_id} - Update user profile (no email/password)");
+    log:printInfo("  DELETE /api/user/{user_id} - Soft delete user");
+    log:printInfo("  POST /api/user/{user_id}/restore - Restore deleted user");
     log:printInfo("Authentication API is ready to accept requests");
 }

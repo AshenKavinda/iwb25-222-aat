@@ -186,6 +186,91 @@ public isolated class DatabaseConnection {
             }
         };
     }
+
+    // Soft delete user and profile
+    public isolated function softDeleteUser(int userId) returns int|error {
+        // Start a transaction
+        sql:ExecutionResult _ = check self.dbClient->execute(`START TRANSACTION`);
+
+        // Soft delete user
+        sql:ParameterizedQuery userQuery = `UPDATE user SET deleted_at = NOW() WHERE user_id = ${userId} AND deleted_at IS NULL`;
+        sql:ExecutionResult userResult = check self.dbClient->execute(userQuery);
+        if userResult.affectedRowCount == 0 {
+            sql:ExecutionResult _ = check self.dbClient->execute(`ROLLBACK`);
+            return error("User not found or already deleted");
+        }
+
+        // Soft delete profile
+        sql:ParameterizedQuery profileQuery = `UPDATE profile SET deleted_at = NOW() WHERE user_id = ${userId} AND deleted_at IS NULL`;
+        sql:ExecutionResult _ = check self.dbClient->execute(profileQuery);
+
+        // Commit transaction
+        sql:ExecutionResult _ = check self.dbClient->execute(`COMMIT`);
+
+        return userId;
+    }
+
+    // Restore soft deleted user and profile
+    public isolated function restoreUser(int userId) returns UserWithProfile|error {
+        // Start a transaction
+        sql:ExecutionResult _ = check self.dbClient->execute(`START TRANSACTION`);
+
+        // Restore user
+        sql:ParameterizedQuery userQuery = `UPDATE user SET deleted_at = NULL WHERE user_id = ${userId} AND deleted_at IS NOT NULL`;
+        sql:ExecutionResult userResult = check self.dbClient->execute(userQuery);
+        if userResult.affectedRowCount == 0 {
+            sql:ExecutionResult _ = check self.dbClient->execute(`ROLLBACK`);
+            return error("User not found or not deleted");
+        }
+
+        // Restore profile
+        sql:ParameterizedQuery profileQuery = `UPDATE profile SET deleted_at = NULL WHERE user_id = ${userId} AND deleted_at IS NOT NULL`;
+        sql:ExecutionResult _ = check self.dbClient->execute(profileQuery);
+
+        // Commit transaction
+        sql:ExecutionResult _ = check self.dbClient->execute(`COMMIT`);
+
+        // Get restored user with profile
+        sql:ParameterizedQuery selectQuery = `
+            SELECT u.user_id, u.email, u.role, u.created_at, u.updated_at, u.deleted_at,
+                   p.profile_id, p.name, p.phone_number, p.dob, p.created_at as profile_created_at, 
+                   p.updated_at as profile_updated_at, p.deleted_at as profile_deleted_at
+            FROM user u 
+            LEFT JOIN profile p ON u.user_id = p.user_id 
+            WHERE u.user_id = ${userId}
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        record {|record {} value;|}? result = check resultStream.next();
+        check resultStream.close();
+
+        if result is () {
+            return error("Restored user not found");
+        }
+
+        record {} userData = result.value;
+        
+        return {
+            user: {
+                user_id: <int>userData["user_id"],
+                email: <string>userData["email"],
+                role: <UserRole>userData["role"],
+                created_at: userData["created_at"].toString(),
+                updated_at: userData["updated_at"].toString(),
+                deleted_at: userData["deleted_at"] is () ? () : userData["deleted_at"].toString()
+            },
+            profile: {
+                profile_id: <int>userData["profile_id"],
+                name: <string>userData["name"],
+                phone_number: userData["phone_number"] is () ? () : <string>userData["phone_number"],
+                dob: userData["dob"] is () ? () : <string>userData["dob"],
+                user_id: <int>userData["user_id"],
+                created_at: userData["profile_created_at"].toString(),
+                updated_at: userData["profile_updated_at"].toString(),
+                deleted_at: userData["profile_deleted_at"] is () ? () : userData["profile_deleted_at"].toString()
+            }
+        };
+    }
 }
 
 // Global database connection instance

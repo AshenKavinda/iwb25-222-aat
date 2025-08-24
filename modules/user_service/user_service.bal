@@ -35,3 +35,39 @@ public isolated function updateUserWithProfile(int userId, UpdateUserRequest upd
         data: result
     };
 }
+
+// Function to soft delete user
+public isolated function softDeleteUser(int userId) returns DeleteUserResponse|ErrorResponse|error {
+    int|error result = dbConnection.softDeleteUser(userId);
+
+    if result is error {
+        log:printError("Failed to delete user", 'error = result);
+        return {
+            message: result.message(),
+            'error: "DELETE_ERROR"
+        };
+    }
+
+    return {
+        message: "User deleted successfully",
+        user_id: result
+    };
+}
+
+// Function to restore user
+public isolated function restoreUser(int userId) returns RestoreUserResponse|ErrorResponse|error {
+    UserWithProfile|error result = dbConnection.restoreUser(userId);
+
+    if result is error {
+        log:printError("Failed to restore user", 'error = result);
+        return {
+            message: result.message(),
+            'error: "RESTORE_ERROR"
+        };
+    }
+
+    return {
+        message: "User restored successfully",
+        data: result
+    };
+}
