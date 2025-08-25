@@ -28,8 +28,26 @@ public isolated function addTest(AddTestRequest addTestReq) returns AddTestRespo
         };
     }
 
+    // Validate that the subject exists
+    boolean|error subjectValidation = testDbConnection.validateSubjectExists(addTestReq.subject_id);
+    
+    if subjectValidation is error {
+        log:printError("Failed to validate subject", 'error = subjectValidation);
+        return {
+            message: subjectValidation.message(),
+            'error: "SUBJECT_VALIDATION_ERROR"
+        };
+    }
+    
+    if subjectValidation is boolean && !subjectValidation {
+        return {
+            message: "Subject ID does not exist or subject is deleted",
+            'error: "INVALID_SUBJECT"
+        };
+    }
+
     Test|error result = testDbConnection.addTest(
-        addTestReq.t_name, addTestReq.t_type, addTestReq.year, addTestReq.user_id
+        addTestReq.t_name, addTestReq.t_type, addTestReq.year, addTestReq.user_id, addTestReq.subject_id
     );
 
     if result is error {
@@ -58,6 +76,26 @@ public isolated function updateTest(int testId, UpdateTestRequest updateTestReq)
         }
     }
 
+    // Validate subject if provided
+    if updateTestReq?.subject_id is int {
+        boolean|error subjectValidation = testDbConnection.validateSubjectExists(updateTestReq?.subject_id ?: 0);
+        
+        if subjectValidation is error {
+            log:printError("Failed to validate subject", 'error = subjectValidation);
+            return {
+                message: subjectValidation.message(),
+                'error: "SUBJECT_VALIDATION_ERROR"
+            };
+        }
+        
+        if subjectValidation is boolean && !subjectValidation {
+            return {
+                message: "Subject ID does not exist or subject is deleted",
+                'error: "INVALID_SUBJECT"
+            };
+        }
+    }
+
     // First validate that the test exists and belongs to a valid officer
     boolean|error testValidation = testDbConnection.validateTestBelongsToOfficer(testId);
     
@@ -77,7 +115,7 @@ public isolated function updateTest(int testId, UpdateTestRequest updateTestReq)
     }
 
     Test|error result = testDbConnection.updateTest(
-        testId, updateTestReq?.t_name, updateTestReq?.t_type, updateTestReq?.year
+        testId, updateTestReq?.t_name, updateTestReq?.t_type, updateTestReq?.year, updateTestReq?.subject_id
     );
 
     if result is error {
@@ -299,6 +337,42 @@ public isolated function filterTestsByYear(string year) returns GetTestsByTypeRe
 
     return {
         message: "Tests filtered successfully",
+        data: result
+    };
+}
+
+// Function to get tests by subject
+public isolated function getTestsBySubject(int subjectId) returns GetTestsBySubjectResponse|ErrorResponse|error {
+    // Validate that the subject exists
+    boolean|error subjectValidation = testDbConnection.validateSubjectExists(subjectId);
+    
+    if subjectValidation is error {
+        log:printError("Failed to validate subject", 'error = subjectValidation);
+        return {
+            message: subjectValidation.message(),
+            'error: "SUBJECT_VALIDATION_ERROR"
+        };
+    }
+    
+    if subjectValidation is boolean && !subjectValidation {
+        return {
+            message: "Subject ID does not exist or subject is deleted",
+            'error: "INVALID_SUBJECT"
+        };
+    }
+
+    Test[]|error result = testDbConnection.getTestsBySubject(subjectId);
+
+    if result is error {
+        log:printError("Failed to retrieve tests by subject", 'error = result);
+        return {
+            message: result.message(),
+            'error: "FETCH_ERROR"
+        };
+    }
+
+    return {
+        message: "Tests retrieved successfully",
         data: result
     };
 }

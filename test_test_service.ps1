@@ -15,12 +15,14 @@ $testData = @{
     t_type = "tm1"
     year = "2024"
     user_id = 1  # Assuming user_id 1 is an officer
+    subject_id = 1  # Assuming subject_id 1 exists
 } | ConvertTo-Json
 
 $updateData = @{
     t_name = "Updated Mathematics Term Test 1"
     t_type = "tm2"
     year = "2025"
+    subject_id = 2
 } | ConvertTo-Json
 
 try {
@@ -73,31 +75,38 @@ try {
     Write-Host "Response: $($response | ConvertTo-Json -Depth 3)" -ForegroundColor Cyan
     Write-Host ""
 
-    # 9. Soft delete test
-    Write-Host "9. Testing DELETE /api/test/$testId (Soft Delete Test)" -ForegroundColor Yellow
+    # 9. Get tests by subject
+    Write-Host "9. Testing GET /api/test/subject/1 (Get Tests by Subject)" -ForegroundColor Yellow
+    $response = Invoke-RestMethod -Uri "$baseUrl/test/subject/1" -Method GET -Headers $headers
+    Write-Host "Response: $($response | ConvertTo-Json -Depth 3)" -ForegroundColor Cyan
+    Write-Host ""
+
+    # 10. Soft delete test
+    Write-Host "10. Testing DELETE /api/test/$testId (Soft Delete Test)" -ForegroundColor Yellow
     $response = Invoke-RestMethod -Uri "$baseUrl/test/$testId" -Method DELETE -Headers $headers
     Write-Host "Response: $($response | ConvertTo-Json -Depth 3)" -ForegroundColor Cyan
     Write-Host ""
 
-    # 10. Get deleted tests
-    Write-Host "10. Testing GET /api/test/deleted (Get Deleted Tests)" -ForegroundColor Yellow
+    # 11. Get deleted tests
+    Write-Host "11. Testing GET /api/test/deleted (Get Deleted Tests)" -ForegroundColor Yellow
     $response = Invoke-RestMethod -Uri "$baseUrl/test/deleted" -Method GET -Headers $headers
     Write-Host "Response: $($response | ConvertTo-Json -Depth 3)" -ForegroundColor Cyan
     Write-Host ""
 
-    # 11. Restore test
-    Write-Host "11. Testing POST /api/test/$testId/restore (Restore Test)" -ForegroundColor Yellow
+    # 12. Restore test
+    Write-Host "12. Testing POST /api/test/$testId/restore (Restore Test)" -ForegroundColor Yellow
     $response = Invoke-RestMethod -Uri "$baseUrl/test/$testId/restore" -Method POST -Headers $headers
     Write-Host "Response: $($response | ConvertTo-Json -Depth 3)" -ForegroundColor Cyan
     Write-Host ""
 
-    # 12. Test invalid test type
-    Write-Host "12. Testing with invalid test type" -ForegroundColor Yellow
+    # 13. Test invalid test type
+    Write-Host "13. Testing with invalid test type" -ForegroundColor Yellow
     $invalidData = @{
         t_name = "Invalid Test"
         t_type = "invalid_type"
         year = "2024"
         user_id = 1
+        subject_id = 1
     } | ConvertTo-Json
 
     try {
@@ -115,8 +124,8 @@ try {
     }
     Write-Host ""
 
-    # 13. Test invalid test type filter
-    Write-Host "13. Testing GET /api/test/types/invalid_type (Invalid Type Filter)" -ForegroundColor Yellow
+    # 14. Test invalid test type filter
+    Write-Host "14. Testing GET /api/test/types/invalid_type (Invalid Type Filter)" -ForegroundColor Yellow
     try {
         $response = Invoke-RestMethod -Uri "$baseUrl/test/types/invalid_type" -Method GET -Headers $headers
         Write-Host "Response: $($response | ConvertTo-Json -Depth 3)" -ForegroundColor Cyan

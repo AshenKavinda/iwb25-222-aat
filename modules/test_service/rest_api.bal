@@ -136,6 +136,18 @@ public service class TestRestService {
         
         return result;
     }
+    
+    // Get tests by subject
+    resource function get subject/[int subjectId]() returns GetTestsBySubjectResponse|ErrorResponse|http:InternalServerError {
+        GetTestsBySubjectResponse|ErrorResponse|error result = getTestsBySubject(subjectId);
+        
+        if result is error {
+            log:printError("Internal server error while retrieving tests by subject", 'error = result);
+            return http:INTERNAL_SERVER_ERROR;
+        }
+        
+        return result;
+    }
 }
 
 // Get test service instance

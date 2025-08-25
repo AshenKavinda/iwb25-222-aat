@@ -5,13 +5,15 @@ final AddTestRequest testAddRequest = {
     t_name: "Mathematics Term Test 1",
     t_type: "tm1",
     year: "2024",
-    user_id: 1 // Assuming user_id 1 is an officer
+    user_id: 1, // Assuming user_id 1 is an officer
+    subject_id: 1 // Assuming subject_id 1 exists
 };
 
 final UpdateTestRequest testUpdateRequest = {
     t_name: "Updated Mathematics Term Test 1",
     t_type: "tm2",
-    year: "2025"
+    year: "2025",
+    subject_id: 2
 };
 
 @test:Config {}
@@ -35,7 +37,8 @@ function testAddTestInvalidType() returns error? {
         t_name: "Invalid Test",
         t_type: "invalid_type",
         year: "2024",
-        user_id: 1
+        user_id: 1,
+        subject_id: 1
     };
     
     AddTestResponse|ErrorResponse|error result = addTest(invalidRequest);
@@ -115,5 +118,17 @@ function testGetAvailableYears() returns error? {
         test:assertTrue(result.data is string[]);
     } else {
         test:assertFail("Expected GetAvailableYearsResponse, but got an error");
+    }
+}
+
+@test:Config {}
+function testGetTestsBySubject() returns error? {
+    GetTestsBySubjectResponse|ErrorResponse|error result = getTestsBySubject(1); // Assuming subject_id 1 exists
+    
+    if result is GetTestsBySubjectResponse {
+        test:assertEquals(result.message, "Tests retrieved successfully");
+        test:assertTrue(result.data is Test[]);
+    } else {
+        test:assertFail("Expected GetTestsBySubjectResponse, but got an error");
     }
 }

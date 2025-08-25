@@ -72,5 +72,6 @@ public function main() returns error? {
     log:printInfo("  GET /api/test/types/{type} - Filter tests by type (tm1/tm2/tm3) (Officer only)");
     log:printInfo("  GET /api/test/year/{year} - Filter tests by year (Officer only)");
     log:printInfo("  GET /api/test/search/name/{name} - Search tests by name (Officer only)");
+    log:printInfo("  GET /api/test/subject/{subject_id} - Get tests by subject (Officer only)");
     log:printInfo("Authentication API is ready to accept requests");
 }

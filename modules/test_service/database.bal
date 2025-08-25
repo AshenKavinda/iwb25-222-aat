@@ -40,6 +40,25 @@ public isolated class TestDatabaseConnection {
         return VALID_TEST_TYPES.indexOf(testType) != ();
     }
 
+    // Validate that subject exists and is not deleted
+    public isolated function validateSubjectExists(int subjectId) returns boolean|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT subject_id 
+            FROM subject 
+            WHERE subject_id = ${subjectId} AND deleted_at IS NULL
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        record {|record {} value;|}? result = check resultStream.next();
+        check resultStream.close();
+
+        if result is () {
+            return error("Subject not found or subject is deleted");
+        }
+
+        return true;
+    }
+
     // Validate that user exists and is an officer
     public isolated function validateUserIsOfficer(int userId) returns boolean|error {
         sql:ParameterizedQuery selectQuery = `
@@ -109,10 +128,10 @@ public isolated class TestDatabaseConnection {
     }
 
     // Add test
-    public isolated function addTest(string tName, string tType, string year, int userId) returns Test|error {
+    public isolated function addTest(string tName, string tType, string year, int userId, int subjectId) returns Test|error {
         sql:ParameterizedQuery insertQuery = `
-            INSERT INTO test (t_name, t_type, year, user_id) 
-            VALUES (${tName}, ${tType}, ${year}, ${userId})
+            INSERT INTO test (t_name, t_type, year, user_id, subject_id) 
+            VALUES (${tName}, ${tType}, ${year}, ${userId}, ${subjectId})
         `;
         sql:ExecutionResult result = check self.dbClient->execute(insertQuery);
 
@@ -130,28 +149,45 @@ public isolated class TestDatabaseConnection {
             t_name: tName,
             t_type: tType,
             year: year,
-            user_id: userId
+            user_id: userId,
+            subject_id: subjectId
         };
     }
 
     // Update test
-    public isolated function updateTest(int testId, string? tName, string? tType, string? year) returns Test|error {
+    public isolated function updateTest(int testId, string? tName, string? tType, string? year, int? subjectId) returns Test|error {
         sql:ParameterizedQuery updateQuery;
         
-        if tName is string && tType is string && year is string {
+        if tName is string && tType is string && year is string && subjectId is int {
+            updateQuery = `UPDATE test SET t_name = ${tName}, t_type = ${tType}, year = ${year}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if tName is string && tType is string && year is string {
             updateQuery = `UPDATE test SET t_name = ${tName}, t_type = ${tType}, year = ${year}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if tName is string && tType is string && subjectId is int {
+            updateQuery = `UPDATE test SET t_name = ${tName}, t_type = ${tType}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if tName is string && year is string && subjectId is int {
+            updateQuery = `UPDATE test SET t_name = ${tName}, year = ${year}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if tType is string && year is string && subjectId is int {
+            updateQuery = `UPDATE test SET t_type = ${tType}, year = ${year}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else if tName is string && tType is string {
             updateQuery = `UPDATE test SET t_name = ${tName}, t_type = ${tType}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else if tName is string && year is string {
             updateQuery = `UPDATE test SET t_name = ${tName}, year = ${year}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if tName is string && subjectId is int {
+            updateQuery = `UPDATE test SET t_name = ${tName}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else if tType is string && year is string {
             updateQuery = `UPDATE test SET t_type = ${tType}, year = ${year}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if tType is string && subjectId is int {
+            updateQuery = `UPDATE test SET t_type = ${tType}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if year is string && subjectId is int {
+            updateQuery = `UPDATE test SET year = ${year}, subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else if tName is string {
             updateQuery = `UPDATE test SET t_name = ${tName}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else if tType is string {
             updateQuery = `UPDATE test SET t_type = ${tType}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else if year is string {
             updateQuery = `UPDATE test SET year = ${year}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
+        } else if subjectId is int {
+            updateQuery = `UPDATE test SET subject_id = ${subjectId}, updated_at = NOW() WHERE test_id = ${testId} AND deleted_at IS NULL`;
         } else {
             return error("No fields to update");
         }
@@ -194,7 +230,7 @@ public isolated class TestDatabaseConnection {
     // Get all active tests
     public isolated function getAllTests() returns Test[]|error {
         sql:ParameterizedQuery selectQuery = `
-            SELECT test_id, t_name, t_type, year, user_id, created_at, updated_at, deleted_at
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
             FROM test 
             WHERE deleted_at IS NULL
             ORDER BY created_at DESC
@@ -211,6 +247,7 @@ public isolated class TestDatabaseConnection {
                     t_type: <string>testData["t_type"],
                     year: <string>testData["year"],
                     user_id: <int>testData["user_id"],
+                    subject_id: <int>testData["subject_id"],
                     created_at: testData["created_at"].toString(),
                     updated_at: testData["updated_at"].toString(),
                     deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()
@@ -224,7 +261,7 @@ public isolated class TestDatabaseConnection {
     // Get test by ID
     public isolated function getTestById(int testId) returns Test|error {
         sql:ParameterizedQuery selectQuery = `
-            SELECT test_id, t_name, t_type, year, user_id, created_at, updated_at, deleted_at
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
             FROM test 
             WHERE test_id = ${testId} AND deleted_at IS NULL
         `;
@@ -245,6 +282,7 @@ public isolated class TestDatabaseConnection {
             t_type: <string>testData["t_type"],
             year: <string>testData["year"],
             user_id: <int>testData["user_id"],
+            subject_id: <int>testData["subject_id"],
             created_at: testData["created_at"].toString(),
             updated_at: testData["updated_at"].toString(),
             deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()
@@ -254,7 +292,7 @@ public isolated class TestDatabaseConnection {
     // Get all deleted tests
     public isolated function getDeletedTests() returns Test[]|error {
         sql:ParameterizedQuery selectQuery = `
-            SELECT test_id, t_name, t_type, year, user_id, created_at, updated_at, deleted_at
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
             FROM test 
             WHERE deleted_at IS NOT NULL
             ORDER BY deleted_at DESC
@@ -271,6 +309,7 @@ public isolated class TestDatabaseConnection {
                     t_type: <string>testData["t_type"],
                     year: <string>testData["year"],
                     user_id: <int>testData["user_id"],
+                    subject_id: <int>testData["subject_id"],
                     created_at: testData["created_at"].toString(),
                     updated_at: testData["updated_at"].toString(),
                     deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()
@@ -305,7 +344,7 @@ public isolated class TestDatabaseConnection {
     // Get tests by type
     public isolated function getTestsByType(string tType) returns Test[]|error {
         sql:ParameterizedQuery selectQuery = `
-            SELECT test_id, t_name, t_type, year, user_id, created_at, updated_at, deleted_at
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
             FROM test 
             WHERE t_type = ${tType} AND deleted_at IS NULL
             ORDER BY created_at DESC
@@ -322,6 +361,7 @@ public isolated class TestDatabaseConnection {
                     t_type: <string>testData["t_type"],
                     year: <string>testData["year"],
                     user_id: <int>testData["user_id"],
+                    subject_id: <int>testData["subject_id"],
                     created_at: testData["created_at"].toString(),
                     updated_at: testData["updated_at"].toString(),
                     deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()
@@ -335,7 +375,7 @@ public isolated class TestDatabaseConnection {
     // Search tests by name
     public isolated function searchTestsByName(string namePattern) returns Test[]|error {
         sql:ParameterizedQuery selectQuery = `
-            SELECT test_id, t_name, t_type, year, user_id, created_at, updated_at, deleted_at
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
             FROM test 
             WHERE t_name LIKE ${namePattern} AND deleted_at IS NULL
             ORDER BY created_at DESC
@@ -352,6 +392,7 @@ public isolated class TestDatabaseConnection {
                     t_type: <string>testData["t_type"],
                     year: <string>testData["year"],
                     user_id: <int>testData["user_id"],
+                    subject_id: <int>testData["subject_id"],
                     created_at: testData["created_at"].toString(),
                     updated_at: testData["updated_at"].toString(),
                     deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()
@@ -365,7 +406,7 @@ public isolated class TestDatabaseConnection {
     // Filter tests by year
     public isolated function filterTestsByYear(string year) returns Test[]|error {
         sql:ParameterizedQuery selectQuery = `
-            SELECT test_id, t_name, t_type, year, user_id, created_at, updated_at, deleted_at
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
             FROM test 
             WHERE year = ${year} AND deleted_at IS NULL
             ORDER BY created_at DESC
@@ -382,6 +423,38 @@ public isolated class TestDatabaseConnection {
                     t_type: <string>testData["t_type"],
                     year: <string>testData["year"],
                     user_id: <int>testData["user_id"],
+                    subject_id: <int>testData["subject_id"],
+                    created_at: testData["created_at"].toString(),
+                    updated_at: testData["updated_at"].toString(),
+                    deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()
+                };
+                tests.push(test);
+            };
+
+        return tests;
+    }
+
+    // Get tests by subject
+    public isolated function getTestsBySubject(int subjectId) returns Test[]|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT test_id, t_name, t_type, year, user_id, subject_id, created_at, updated_at, deleted_at
+            FROM test 
+            WHERE subject_id = ${subjectId} AND deleted_at IS NULL
+            ORDER BY created_at DESC
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        Test[] tests = [];
+
+        check from record {} testData in resultStream
+            do {
+                Test test = {
+                    test_id: <int>testData["test_id"],
+                    t_name: <string>testData["t_name"],
+                    t_type: <string>testData["t_type"],
+                    year: <string>testData["year"],
+                    user_id: <int>testData["user_id"],
+                    subject_id: <int>testData["subject_id"],
                     created_at: testData["created_at"].toString(),
                     updated_at: testData["updated_at"].toString(),
                     deleted_at: testData["deleted_at"] is () ? () : testData["deleted_at"].toString()

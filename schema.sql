@@ -101,7 +101,9 @@ CREATE TABLE test (
     t_type ENUM('tm1','tm2','tm3') NOT NULL,
     year VARCHAR(10) NOT NULL,
     user_id INT NOT NULL,
+    subject_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (subject_id) REFERENCES subject(subject_id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL DEFAULT NULL

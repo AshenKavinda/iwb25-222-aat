@@ -5,6 +5,7 @@ public type Test record {
     string t_type; // ENUM: 'tm1','tm2','tm3'
     string year;
     int user_id;
+    int subject_id;
     string created_at?;
     string updated_at?;
     string? deleted_at?;
@@ -22,6 +23,7 @@ public type AddTestRequest record {
     string t_type; // ENUM: 'tm1','tm2','tm3'
     string year;
     int user_id;
+    int subject_id;
 };
 
 // Add test response type
@@ -35,6 +37,7 @@ public type UpdateTestRequest record {
     string? t_name?;
     string? t_type?; // ENUM: 'tm1','tm2','tm3'
     string? year?;
+    int? subject_id?;
 };
 
 // Update test response type
@@ -87,6 +90,12 @@ public type GetTestsByTypeResponse record {
 
 // Search tests by name response type
 public type SearchTestsByNameResponse record {
+    string message;
+    Test[] data;
+};
+
+// Get tests by subject response type
+public type GetTestsBySubjectResponse record {
     string message;
     Test[] data;
 };

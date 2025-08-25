@@ -32,6 +32,7 @@ This module provides REST API endpoints for managing tests in the school perform
 - `GET /api/test/types/{type}` - Filter tests by type (tm1/tm2/tm3) (Officer only)
 - `GET /api/test/year/{year}` - Filter tests by year (Officer only)
 - `GET /api/test/search/name/{name}` - Search tests by name (Officer only)
+- `GET /api/test/subject/{subject_id}` - Get tests by subject (Officer only)
 - `GET /api/test/years` - Get available years (Officer only)
 
 ## Test Types
@@ -50,6 +51,7 @@ The system supports three test types:
     "t_type": "tm1",
     "year": "2024",
     "user_id": 5,
+    "subject_id": 3,
     "created_at": "2024-01-15T10:30:00Z",
     "updated_at": "2024-01-15T10:30:00Z",
     "deleted_at": null
@@ -61,7 +63,8 @@ The system supports three test types:
 1. **Test Type**: Must be one of the valid ENUM values (tm1, tm2, tm3)
 2. **User Role**: Only users with 'officer' role can perform test operations
 3. **User Existence**: User ID must exist and not be deleted
-4. **Soft Delete**: Tests are marked as deleted, not permanently removed
+4. **Subject Existence**: Subject ID must exist and not be deleted
+5. **Soft Delete**: Tests are marked as deleted, not permanently removed
 
 ## Error Handling
 
@@ -69,4 +72,5 @@ The service returns appropriate error messages for:
 - Invalid test types
 - Unauthorized access (non-officer users)
 - Test not found scenarios
+- Invalid subject references
 - Database operation failures
