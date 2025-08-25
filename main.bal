@@ -3,6 +3,7 @@ import ballerina/log;
 import school_performance_panel.authentication_service;
 import school_performance_panel.user_service;
 import school_performance_panel.student_service;
+import school_performance_panel.subject_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -15,6 +16,7 @@ public function main() returns error? {
     check httpListener.attach(authentication_service:getHealthService(), "/api");
     check httpListener.attach(user_service:getUserService(), "/api/user");
     check httpListener.attach(student_service:getStudentService(), "/api/student");
+    check httpListener.attach(subject_service:getSubjectService(), "/api/subject");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -36,5 +38,13 @@ public function main() returns error? {
     log:printInfo("  GET /api/student/{student_id} - Get student by ID (Officer only)");
     log:printInfo("  GET /api/student/deleted - Get deleted students (Officer only)");
     log:printInfo("  GET /api/student/search?name={name} - Search students by name (Officer only)");
+    log:printInfo("  POST /api/subject - Add subject (Officer only)");
+    log:printInfo("  PUT /api/subject/{subject_id} - Update subject (Officer only)");
+    log:printInfo("  DELETE /api/subject/{subject_id} - Soft delete subject (Officer only)");
+    log:printInfo("  POST /api/subject/{subject_id}/restore - Restore subject (Officer only)");
+    log:printInfo("  GET /api/subject - Get all subjects (Officer only)");
+    log:printInfo("  GET /api/subject/{subject_id} - Get subject by ID (Officer only)");
+    log:printInfo("  GET /api/subject/deleted - Get deleted subjects (Officer only)");
+    log:printInfo("  GET /api/subject/search/{name} - Search subjects by name (Officer only)");
     log:printInfo("Authentication API is ready to accept requests");
 }
