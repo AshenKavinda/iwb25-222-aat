@@ -4,6 +4,7 @@ import school_performance_panel.authentication_service;
 import school_performance_panel.user_service;
 import school_performance_panel.student_service;
 import school_performance_panel.subject_service;
+import school_performance_panel.course_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -17,6 +18,7 @@ public function main() returns error? {
     check httpListener.attach(user_service:getUserService(), "/api/user");
     check httpListener.attach(student_service:getStudentService(), "/api/student");
     check httpListener.attach(subject_service:getSubjectService(), "/api/subject");
+    check httpListener.attach(course_service:getCourseService(), "/api/course");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -46,5 +48,16 @@ public function main() returns error? {
     log:printInfo("  GET /api/subject/{subject_id} - Get subject by ID (Officer only)");
     log:printInfo("  GET /api/subject/deleted - Get deleted subjects (Officer only)");
     log:printInfo("  GET /api/subject/search/{name} - Search subjects by name (Officer only)");
+    log:printInfo("  POST /api/course - Add course (Officer only)");
+    log:printInfo("  PUT /api/course/{course_id} - Update course (Officer only)");
+    log:printInfo("  DELETE /api/course/{course_id} - Soft delete course (Officer only)");
+    log:printInfo("  POST /api/course/{course_id}/restore - Restore course (Officer only)");
+    log:printInfo("  GET /api/course - Get all courses (Officer only)");
+    log:printInfo("  GET /api/course/{course_id} - Get course by ID (Officer only)");
+    log:printInfo("  GET /api/course/deleted - Get deleted courses (Officer only)");
+    log:printInfo("  GET /api/course/years - Get available years (Officer only)");
+    log:printInfo("  GET /api/course/search/name/{name} - Search courses by name (Officer only)");
+    log:printInfo("  GET /api/course/search/year/{year} - Search courses by year (Officer only)");
+    log:printInfo("  GET /api/course/search/name/{name}/year/{year} - Search courses by name and year (Officer only)");
     log:printInfo("Authentication API is ready to accept requests");
 }

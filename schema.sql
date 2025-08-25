@@ -39,7 +39,7 @@ CREATE TABLE course (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     hall VARCHAR(255),
-    year YEAR NOT NULL,
+    year VARCHAR(10) NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
