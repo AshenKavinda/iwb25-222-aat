@@ -5,6 +5,7 @@ import school_performance_panel.user_service;
 import school_performance_panel.student_service;
 import school_performance_panel.subject_service;
 import school_performance_panel.course_service;
+import school_performance_panel.test_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -19,6 +20,7 @@ public function main() returns error? {
     check httpListener.attach(student_service:getStudentService(), "/api/student");
     check httpListener.attach(subject_service:getSubjectService(), "/api/subject");
     check httpListener.attach(course_service:getCourseService(), "/api/course");
+    check httpListener.attach(test_service:getTestService(), "/api/test");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -59,5 +61,17 @@ public function main() returns error? {
     log:printInfo("  GET /api/course/search/name/{name} - Search courses by name (Officer only)");
     log:printInfo("  GET /api/course/search/year/{year} - Search courses by year (Officer only)");
     log:printInfo("  GET /api/course/search/name/{name}/year/{year} - Search courses by name and year (Officer only)");
+    log:printInfo("  POST /api/test - Add test (Officer only)");
+    log:printInfo("  PUT /api/test/{test_id} - Update test (Officer only)");
+    log:printInfo("  DELETE /api/test/{test_id} - Soft delete test (Officer only)");
+    log:printInfo("  POST /api/test/{test_id}/restore - Restore test (Officer only)");
+    log:printInfo("  GET /api/test - Get all tests (Officer only)");
+    log:printInfo("  GET /api/test/{test_id} - Get test by ID (Officer only)");
+    log:printInfo("  GET /api/test/deleted - Get deleted tests (Officer only)");
+    log:printInfo("  GET /api/test/years - Get available years for tests (Officer only)");
+    log:printInfo("  GET /api/test/types/{type} - Filter tests by type (tm1/tm2/tm3) (Officer only)");
+    log:printInfo("  GET /api/test/year/{year} - Filter tests by year (Officer only)");
+    log:printInfo("  GET /api/test/search/name/{name} - Search tests by name (Officer only)");
+    log:printInfo("  GET /api/test/subject/{subject_id} - Get tests by subject (Officer only)");
     log:printInfo("Authentication API is ready to accept requests");
 }
