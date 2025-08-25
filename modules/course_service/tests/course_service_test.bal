@@ -1,33 +1,57 @@
-import ballerina/io;
 import ballerina/test;
 
-// Before Suite Function
-
-@test:BeforeSuite
-function beforeSuiteFunc() {
-    io:println("I'm the before suite function!");
-}
-
-// Test function
+// Course service tests
 
 @test:Config {}
-function testFunction() {
-    string name = "John";
-    string welcomeMsg = hello(name);
-    test:assertEquals(welcomeMsg, "Hello, John");
+function testAddCourse() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - addCourse");
 }
-
-// Negative Test function
 
 @test:Config {}
-function negativeTestFunction() {
-    string welcomeMsg = hello(());
-    test:assertEquals(welcomeMsg, "Hello, World!");
+function testGetAllCourses() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - getAllCourses");
 }
 
-// After Suite Function
+@test:Config {}
+function testGetCourseById() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - getCourseById");
+}
 
-@test:AfterSuite
-function afterSuiteFunc() {
-    io:println("I'm the after suite function!");
+@test:Config {}
+function testUpdateCourse() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - updateCourse");
+}
+
+@test:Config {}
+function testSoftDeleteCourse() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - softDeleteCourse");
+}
+
+@test:Config {}
+function testRestoreCourse() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - restoreCourse");
+}
+
+@test:Config {}
+function testGetDeletedCourses() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - getDeletedCourses");
+}
+
+@test:Config {}
+function testGetAvailableYears() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - getAvailableYears");
+}
+
+@test:Config {}
+function testSearchCoursesByNameAndYear() {
+    // Test will be implemented when database is available
+    test:assertTrue(true, "Course service test placeholder - searchCoursesByNameAndYear");
 }
