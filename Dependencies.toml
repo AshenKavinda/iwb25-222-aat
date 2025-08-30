@@ -33,6 +33,7 @@ modules = [
 	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.student_service"},
 	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.student_subject_enrollement_service"},
 	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.subject_service"},
+	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.test_enrollment_service"},
 	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.test_service"},
 	{org = "ashen", packageName = "school_performance_panel", moduleName = "school_performance_panel.user_service"}
 ]
