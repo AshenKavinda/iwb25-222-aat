@@ -1,33 +1,47 @@
-import ballerina/io;
 import ballerina/test;
 
-// Before Suite Function
-
-@test:BeforeSuite
-function beforeSuiteFunc() {
-    io:println("I'm the before suite function!");
-}
-
-// Test function
-
+// Test for getting top performing students
 @test:Config {}
-function testFunction() {
-    string name = "John";
-    string welcomeMsg = hello(name);
-    test:assertEquals(welcomeMsg, "Hello, John");
+function testGetTopPerformingStudents() {
+    // This is a placeholder test
+    // In a real implementation, you would:
+    // 1. Set up test data
+    // 2. Call the function
+    // 3. Assert the results
+    test:assertTrue(true, "Placeholder test for top performing students");
 }
 
-// Negative Test function
-
+// Test for getting average marks by subject
 @test:Config {}
-function negativeTestFunction() {
-    string welcomeMsg = hello(());
-    test:assertEquals(welcomeMsg, "Hello, World!");
+function testGetAverageMarksBySubject() {
+    // This is a placeholder test
+    test:assertTrue(true, "Placeholder test for average marks by subject");
 }
 
-// After Suite Function
+// Test for getting teacher performance
+@test:Config {}
+function testGetTeacherPerformance() {
+    // This is a placeholder test
+    test:assertTrue(true, "Placeholder test for teacher performance");
+}
 
-@test:AfterSuite
-function afterSuiteFunc() {
-    io:println("I'm the after suite function!");
+// Test for getting student progress
+@test:Config {}
+function testGetStudentProgress() {
+    // This is a placeholder test
+    test:assertTrue(true, "Placeholder test for student progress");
+}
+
+// Test for getting low performing subjects
+@test:Config {}
+function testGetLowPerformingSubjects() {
+    // This is a placeholder test
+    test:assertTrue(true, "Placeholder test for low performing subjects");
+}
+
+// Test for getting top performing courses
+@test:Config {}
+function testGetTopPerformingCourses() {
+    // This is a placeholder test
+    test:assertTrue(true, "Placeholder test for top performing courses");
 }

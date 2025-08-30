@@ -1,0 +1,103 @@
+✅ 1. Top Performing Students (by Term & Year)
+
+Prompt:
+"Show me the top 10 students with the highest total marks for Term 1 in the year 2024, grouped by their courses."
+
+SQL:
+
+SELECT s.student_id, s.full_name, c.name AS course_name, t.year, t.t_type, 
+       SUM(stcs.mark) AS total_marks
+FROM student_test_course_subject stcs
+JOIN student s ON stcs.student_id = s.student_id
+JOIN test t ON stcs.test_id = t.test_id
+JOIN course c ON stcs.course_id = c.course_id
+WHERE t.year = '2024' AND t.t_type = 'tm1'
+GROUP BY s.student_id, s.full_name, c.name, t.year, t.t_type
+ORDER BY total_marks DESC
+LIMIT 10;
+
+✅ 2. Average Marks per Subject by Course and Term
+
+Prompt:
+"Give me the average marks for each subject by course for Term 2 in the year 2024, sorted by highest average."
+
+SQL:
+
+SELECT sub.name AS subject_name, c.name AS course_name, t.t_type, t.year,
+       AVG(stcs.mark) AS avg_mark
+FROM student_test_course_subject stcs
+JOIN subject sub ON stcs.subject_id = sub.subject_id
+JOIN course c ON stcs.course_id = c.course_id
+JOIN test t ON stcs.test_id = t.test_id
+WHERE t.year = '2024' AND t.t_type = 'tm2'
+GROUP BY sub.name, c.name, t.t_type, t.year
+ORDER BY avg_mark DESC;
+
+✅ 3. Teacher Performance Report
+
+Prompt:
+"Show the average student marks for each teacher by subject, sorted by the highest average marks."
+
+SQL:
+
+SELECT u.user_id AS teacher_id, p.name AS teacher_name, sub.name AS subject_name,
+       AVG(stcs.mark) AS avg_student_marks
+FROM student_test_course_subject stcs
+JOIN subject sub ON stcs.subject_id = sub.subject_id
+JOIN subject_course_teacher sct ON sct.subject_id = sub.subject_id AND sct.course_id = stcs.course_id
+JOIN user u ON sct.teacher_id = u.user_id
+JOIN profile p ON p.user_id = u.user_id
+GROUP BY u.user_id, p.name, sub.name
+ORDER BY avg_student_marks DESC;
+
+✅ 4. Student Progress Across Terms
+
+Prompt:
+"Show the term-wise marks (tm1, tm2, tm3) for each student in 2024, grouped by subject."
+
+SQL:
+
+SELECT s.full_name, sub.name AS subject_name, t.year,
+       SUM(CASE WHEN t.t_type = 'tm1' THEN stcs.mark ELSE 0 END) AS tm1_marks,
+       SUM(CASE WHEN t.t_type = 'tm2' THEN stcs.mark ELSE 0 END) AS tm2_marks,
+       SUM(CASE WHEN t.t_type = 'tm3' THEN stcs.mark ELSE 0 END) AS tm3_marks
+FROM student_test_course_subject stcs
+JOIN student s ON stcs.student_id = s.student_id
+JOIN subject sub ON stcs.subject_id = sub.subject_id
+JOIN test t ON stcs.test_id = t.test_id
+WHERE t.year = '2024'
+GROUP BY s.full_name, sub.name, t.year;
+
+✅ 5. Low Performing Subjects
+
+Prompt:
+"Show all subjects with an average mark below 40 for the year 2024, grouped by course and sorted by the lowest average."
+
+SQL:
+
+SELECT sub.name AS subject_name, c.name AS course_name,
+       AVG(stcs.mark) AS avg_marks
+FROM student_test_course_subject stcs
+JOIN subject sub ON stcs.subject_id = sub.subject_id
+JOIN course c ON stcs.course_id = c.course_id
+JOIN test t ON stcs.test_id = t.test_id
+WHERE t.year = '2024'
+GROUP BY sub.name, c.name
+HAVING avg_marks < 40
+ORDER BY avg_marks ASC;
+
+✅ 6. Top Performing Courses
+
+Prompt:
+"Show me the average marks for each course for Term 3 in the year 2024, sorted by highest average marks."
+
+SQL:
+
+SELECT c.name AS course_name, t.year, t.t_type,
+       AVG(stcs.mark) AS avg_marks
+FROM student_test_course_subject stcs
+JOIN course c ON stcs.course_id = c.course_id
+JOIN test t ON stcs.test_id = t.test_id
+WHERE t.year = '2024' AND t.t_type = 'tm3'
+GROUP BY c.name, t.year, t.t_type
+ORDER BY avg_marks DESC;

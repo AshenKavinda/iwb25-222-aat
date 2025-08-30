@@ -1,3 +1,6 @@
+create database school_performance;
+use school_performance;
+
 -- Updated schema with soft delete functionality
 -- Each table now includes a deleted_at column for soft delete functionality
 
@@ -135,8 +138,4 @@ CREATE INDEX idx_profile_deleted_at ON profile(deleted_at);
 CREATE INDEX idx_student_deleted_at ON student(deleted_at);
 CREATE INDEX idx_course_deleted_at ON course(deleted_at);
 CREATE INDEX idx_subject_deleted_at ON subject(deleted_at);
-CREATE INDEX idx_subject_course_teacher_deleted_at ON subject_course_teacher(deleted_at);
-CREATE INDEX idx_student_course_deleted_at ON student_course(deleted_at);
-CREATE INDEX idx_student_subject_course_deleted_at ON student_subject_course(deleted_at);
 CREATE INDEX idx_test_deleted_at ON test(deleted_at);
-CREATE INDEX idx_student_test_course_subject_deleted_at ON student_test_course_subject(deleted_at);
