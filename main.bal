@@ -8,6 +8,7 @@ import school_performance_panel.course_service;
 import school_performance_panel.test_service;
 import school_performance_panel.student_course_service;
 import school_performance_panel.student_subject_enrollement_service;
+import school_performance_panel.course_subject_enrollment_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -25,6 +26,7 @@ public function main() returns error? {
     check httpListener.attach(test_service:getTestService(), "/api/test");
     check httpListener.attach(student_course_service:getStudentCourseService(), "/api/student-course");
     check httpListener.attach(student_subject_enrollement_service:getStudentSubjectEnrollmentService(), "/api/student-subject-enrollment");
+    check httpListener.attach(course_subject_enrollment_service:getCourseSubjectEnrollmentService(), "/api/course-subject-enrollment");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -91,5 +93,10 @@ public function main() returns error? {
     log:printInfo("  DELETE /api/student-subject-enrollment/{record_id} - Delete student subject enrollment record (Officer only)");
     log:printInfo("  GET /api/student-subject-enrollment/{record_id} - Get student subject enrollment by record ID (Officer only)");
     log:printInfo("  GET /api/student-subject-enrollment/student/{student_id}/course/{course_id} - Get student subject enrollments with details (Officer only)");
+    log:printInfo("  POST /api/course-subject-enrollment - Add course subject enrollment (Officer only)");
+    log:printInfo("  PUT /api/course-subject-enrollment/{record_id} - Update course subject enrollment (only subject_id) (Officer only)");
+    log:printInfo("  DELETE /api/course-subject-enrollment/{record_id} - Delete course subject enrollment (Officer only)");
+    log:printInfo("  GET /api/course-subject-enrollment/course/{course_id} - Get all enrollments by course ID (Officer only)");
+    log:printInfo("  GET /api/course-subject-enrollment/teacher/{teacher_id} - Get all enrollments by teacher ID with course details (Officer only)");
     log:printInfo("Authentication API is ready to accept requests");
 }
