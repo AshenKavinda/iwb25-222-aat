@@ -6,6 +6,7 @@ import school_performance_panel.student_service;
 import school_performance_panel.subject_service;
 import school_performance_panel.course_service;
 import school_performance_panel.test_service;
+import school_performance_panel.student_course_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -21,6 +22,7 @@ public function main() returns error? {
     check httpListener.attach(subject_service:getSubjectService(), "/api/subject");
     check httpListener.attach(course_service:getCourseService(), "/api/course");
     check httpListener.attach(test_service:getTestService(), "/api/test");
+    check httpListener.attach(student_course_service:getStudentCourseService(), "/api/student-course");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -73,5 +75,13 @@ public function main() returns error? {
     log:printInfo("  GET /api/test/year/{year} - Filter tests by year (Officer only)");
     log:printInfo("  GET /api/test/search/name/{name} - Search tests by name (Officer only)");
     log:printInfo("  GET /api/test/subject/{subject_id} - Get tests by subject (Officer only)");
+    log:printInfo("  POST /api/student-course - Add students to course (bulk) (Officer only)");
+    log:printInfo("  PUT /api/student-course/{record_id} - Update student course record (Officer only)");
+    log:printInfo("  DELETE /api/student-course/{record_id} - Delete student course record (Officer only)");
+    log:printInfo("  GET /api/student-course/{record_id} - Get student course by record ID (Officer only)");
+    log:printInfo("  GET /api/student-course/student/{student_id} - Get all courses for student (Officer only)");
+    log:printInfo("  GET /api/student-course/course/{course_id} - Get all students in course (Officer only)");
+    log:printInfo("  GET /api/student-course/student/{student_id}/details - Get courses with details for student (Officer only)");
+    log:printInfo("  GET /api/student-course/course/{course_id}/details - Get students with details for course (Officer only)");
     log:printInfo("Authentication API is ready to accept requests");
 }
