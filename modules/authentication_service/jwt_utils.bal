@@ -2,9 +2,9 @@ import ballerina/jwt;
 import ballerina/uuid;
 
 // JWT configuration
-configurable string JWT_SECRET = "your-secret-key-change-this-in-production-make-it-longer-and-more-secure";
-configurable int ACCESS_TOKEN_EXPIRY_TIME = 3600; // 1 hour in seconds
-configurable int REFRESH_TOKEN_EXPIRY_TIME = 604800; // 7 days in seconds
+configurable string JWT_SECRET = ?;
+configurable int ACCESS_TOKEN_EXPIRY_TIME = ?; // 1 hour in seconds
+configurable int REFRESH_TOKEN_EXPIRY_TIME = ?; // 7 days in seconds
 
 // JWT utilities
 public isolated class JwtUtils {
