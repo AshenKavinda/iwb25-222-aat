@@ -92,6 +92,25 @@ public type TopPerformingCoursesResponse record {
     TopPerformingCourse[] data;
 };
 
+// Student marks report record
+public type StudentMarksReport record {
+    int student_id;
+    string full_name;
+    string subject_name;
+    string course_name;
+    string test_name;
+    string test_type;
+    string year;
+    decimal mark;
+    string test_date?;
+};
+
+// Student marks report response
+public type StudentMarksReportResponse record {
+    string message;
+    StudentMarksReport[] data;
+};
+
 // Report filter request types
 public type ReportFilterRequest record {
     string year?;

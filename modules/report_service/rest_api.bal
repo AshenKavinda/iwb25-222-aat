@@ -420,6 +420,41 @@ public service class ReportRestService {
 
         return result;
     }
+
+    // Get student marks report by student ID - No authentication required
+    resource function get student/[int studentId]/marks() 
+            returns StudentMarksReportResponse|ErrorResponse|http:BadRequest|http:InternalServerError {
+        
+        // Validate student ID
+        if studentId <= 0 {
+            return <http:BadRequest>{
+                body: {
+                    message: "Invalid student ID. Must be a positive integer",
+                    'error: "INVALID_STUDENT_ID"
+                }
+            };
+        }
+
+        // Get student marks report
+        StudentMarksReportResponse|ErrorResponse|error result = getStudentMarksReport(studentId);
+
+        if result is ErrorResponse {
+            return <http:InternalServerError>{
+                body: result
+            };
+        }
+
+        if result is error {
+            return <http:InternalServerError>{
+                body: {
+                    message: "Internal server error",
+                    'error: "INTERNAL_ERROR"
+                }
+            };
+        }
+
+        return result;
+    }
 }
 
 // Function to create and return the report service

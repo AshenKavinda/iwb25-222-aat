@@ -51,6 +51,13 @@ The report service provides the following key reports:
   - `term_type` (required): Term type (tm1, tm2, or tm3)
 - **Access**: Manager role required
 
+### 7. Student Marks Report
+- **Endpoint**: `GET /api/reports/student/{student_id}/marks`
+- **Description**: Get all marks for a specific student across all subjects, courses, and tests
+- **Parameters**:
+  - `student_id` (required): Student ID (path parameter)
+- **Access**: No authentication required (public access for students)
+
 ## Authentication
 
 All endpoints require:
