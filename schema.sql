@@ -62,12 +62,12 @@ CREATE TABLE subject_course_teacher (
     record_id INT AUTO_INCREMENT PRIMARY KEY,
     subject_id INT NOT NULL,
     course_id INT NOT NULL,
-    student_id INT NOT NULL,
+    teacher_id INT NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subject(subject_id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES course(course_id) ON DELETE CASCADE,
-    FOREIGN KEY (student_id) REFERENCES student(student_id) ON DELETE CASCADE,
+    FOREIGN KEY (teacher_id) REFERENCES user(user_id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
