@@ -255,6 +255,165 @@ public isolated class TestEnrollmentDatabaseConnection {
 
         return subjectNames;
     }
+
+    // Validate that user exists and is an officer or teacher
+    public isolated function validateUserIsOfficerOrTeacher(int userId) returns boolean|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT role 
+            FROM user 
+            WHERE user_id = ${userId} AND deleted_at IS NULL
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        record {|record {} value;|}? result = check resultStream.next();
+        check resultStream.close();
+
+        if result is () {
+            return error("User not found or user is deleted");
+        }
+
+        record {} userData = result.value;
+        string userRole = <string>userData["role"];
+        
+        return userRole == "officer" || userRole == "teacher";
+    }
+
+    // Get test enrollments by course ID and test ID with detailed information
+    public isolated function getTestEnrollmentsByCourseAndTest(int courseId, int testId) returns TestEnrollmentWithDetails[]|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT 
+                stcs.record_id,
+                stcs.student_id,
+                s.full_name as student_name,
+                stcs.course_id,
+                c.name as course_name,
+                stcs.subject_id,
+                sub.name as subject_name,
+                stcs.test_id,
+                t.t_name as test_name,
+                t.t_type as test_type,
+                stcs.mark,
+                stcs.created_at,
+                stcs.updated_at
+            FROM student_test_course_subject stcs
+            JOIN student s ON stcs.student_id = s.student_id
+            JOIN course c ON stcs.course_id = c.course_id
+            JOIN subject sub ON stcs.subject_id = sub.subject_id
+            JOIN test t ON stcs.test_id = t.test_id
+            WHERE stcs.course_id = ${courseId} 
+            AND stcs.test_id = ${testId}
+            AND s.deleted_at IS NULL
+            AND c.deleted_at IS NULL
+            AND sub.deleted_at IS NULL
+            AND t.deleted_at IS NULL
+            ORDER BY s.full_name ASC
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        TestEnrollmentWithDetails[] enrollments = [];
+
+        check from record {} enrollmentData in resultStream
+            do {
+                TestEnrollmentWithDetails enrollment = {
+                    record_id: <int>enrollmentData["record_id"],
+                    student_id: <int>enrollmentData["student_id"],
+                    student_name: <string>enrollmentData["student_name"],
+                    course_id: <int>enrollmentData["course_id"],
+                    course_name: <string>enrollmentData["course_name"],
+                    subject_id: <int>enrollmentData["subject_id"],
+                    subject_name: <string>enrollmentData["subject_name"],
+                    test_id: <int>enrollmentData["test_id"],
+                    test_name: <string>enrollmentData["test_name"],
+                    test_type: <string>enrollmentData["test_type"],
+                    mark: enrollmentData["mark"] is () ? () : <decimal>enrollmentData["mark"],
+                    created_at: enrollmentData["created_at"].toString(),
+                    updated_at: enrollmentData["updated_at"].toString()
+                };
+                enrollments.push(enrollment);
+            };
+
+        return enrollments;
+    }
+
+    // Get test enrollment by record ID with detailed information
+    public isolated function getTestEnrollmentByRecordId(int recordId) returns TestEnrollmentWithDetails|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT 
+                stcs.record_id,
+                stcs.student_id,
+                s.full_name as student_name,
+                stcs.course_id,
+                c.name as course_name,
+                stcs.subject_id,
+                sub.name as subject_name,
+                stcs.test_id,
+                t.t_name as test_name,
+                t.t_type as test_type,
+                stcs.mark,
+                stcs.created_at,
+                stcs.updated_at
+            FROM student_test_course_subject stcs
+            JOIN student s ON stcs.student_id = s.student_id
+            JOIN course c ON stcs.course_id = c.course_id
+            JOIN subject sub ON stcs.subject_id = sub.subject_id
+            JOIN test t ON stcs.test_id = t.test_id
+            WHERE stcs.record_id = ${recordId}
+            AND s.deleted_at IS NULL
+            AND c.deleted_at IS NULL
+            AND sub.deleted_at IS NULL
+            AND t.deleted_at IS NULL
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        record {|record {} value;|}? result = check resultStream.next();
+        check resultStream.close();
+
+        if result is () {
+            return error("Test enrollment record not found");
+        }
+
+        record {} enrollmentData = result.value;
+        
+        return {
+            record_id: <int>enrollmentData["record_id"],
+            student_id: <int>enrollmentData["student_id"],
+            student_name: <string>enrollmentData["student_name"],
+            course_id: <int>enrollmentData["course_id"],
+            course_name: <string>enrollmentData["course_name"],
+            subject_id: <int>enrollmentData["subject_id"],
+            subject_name: <string>enrollmentData["subject_name"],
+            test_id: <int>enrollmentData["test_id"],
+            test_name: <string>enrollmentData["test_name"],
+            test_type: <string>enrollmentData["test_type"],
+            mark: enrollmentData["mark"] is () ? () : <decimal>enrollmentData["mark"],
+            created_at: enrollmentData["created_at"].toString(),
+            updated_at: enrollmentData["updated_at"].toString()
+        };
+    }
+
+    // Update mark for a test enrollment
+    public isolated function updateMark(int recordId, decimal mark) returns TestEnrollmentWithDetails|error {
+        // Validate mark is between 0 and 100
+        decimal minMark = 0.0d;
+        decimal maxMark = 100.0d;
+        if mark < minMark || mark > maxMark {
+            return error("Mark must be between 0 and 100");
+        }
+
+        sql:ParameterizedQuery updateQuery = `
+            UPDATE student_test_course_subject 
+            SET mark = ${mark}, updated_at = NOW() 
+            WHERE record_id = ${recordId}
+        `;
+        sql:ExecutionResult result = check self.dbClient->execute(updateQuery);
+
+        if result.affectedRowCount == 0 {
+            return error("Test enrollment record not found or failed to update");
+        }
+
+        // Get updated record
+        return check self.getTestEnrollmentByRecordId(recordId);
+    }
 }
 
 // Global database connection instance

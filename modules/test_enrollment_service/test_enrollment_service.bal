@@ -221,3 +221,105 @@ public isolated function deleteTestEnrollments(DeleteTestEnrollmentRequest delet
         affected_records: affectedRecords
     };
 }
+
+// Function to get test enrollments by course ID and test ID
+public isolated function getTestEnrollmentsByCourseAndTest(int courseId, int testId) returns GetTestEnrollmentsByCourseAndTestResponse|ErrorResponse|error {
+    // Validate that course exists
+    boolean|error courseValidation = testEnrollmentDbConnection.validateCourseExists(courseId);
+    
+    if courseValidation is error {
+        log:printError("Failed to validate course", 'error = courseValidation);
+        return {
+            message: courseValidation.message(),
+            'error: "COURSE_VALIDATION_ERROR"
+        };
+    }
+    
+    if courseValidation is boolean && !courseValidation {
+        return {
+            message: "Course does not exist",
+            'error: "INVALID_COURSE"
+        };
+    }
+
+    // Validate that test exists
+    TestInfo[]|error testValidation = testEnrollmentDbConnection.getTestsWithSubjects([testId]);
+    
+    if testValidation is error {
+        log:printError("Failed to validate test", 'error = testValidation);
+        return {
+            message: testValidation.message(),
+            'error: "TEST_VALIDATION_ERROR"
+        };
+    }
+    
+    if testValidation.length() == 0 {
+        return {
+            message: "Test does not exist or is deleted",
+            'error: "INVALID_TEST"
+        };
+    }
+
+    // Get test enrollments
+    TestEnrollmentWithDetails[]|error enrollments = testEnrollmentDbConnection.getTestEnrollmentsByCourseAndTest(courseId, testId);
+    
+    if enrollments is error {
+        log:printError("Failed to get test enrollments", 'error = enrollments);
+        return {
+            message: enrollments.message(),
+            'error: "FETCH_ERROR"
+        };
+    }
+
+    return {
+        message: "Test enrollments retrieved successfully",
+        data: enrollments
+    };
+}
+
+// Function to update mark by record ID with user validation
+public isolated function updateMarkByRecordId(int recordId, UpdateMarkRequest updateMarkReq) returns UpdateMarkResponse|ErrorResponse|error {
+    // First validate that the user exists and is an officer or teacher
+    boolean|error userValidation = testEnrollmentDbConnection.validateUserIsOfficerOrTeacher(updateMarkReq.user_id);
+    
+    if userValidation is error {
+        log:printError("Failed to validate user", 'error = userValidation);
+        return {
+            message: userValidation.message(),
+            'error: "USER_VALIDATION_ERROR"
+        };
+    }
+    
+    if userValidation is boolean && !userValidation {
+        return {
+            message: "User ID does not exist or user is not an officer or teacher",
+            'error: "INVALID_USER_OR_ROLE"
+        };
+    }
+
+    // Validate mark range
+    decimal minMark = 0.0d;
+    decimal maxMark = 100.0d;
+    if updateMarkReq.mark < minMark || updateMarkReq.mark > maxMark {
+        return {
+            message: "Mark must be between 0 and 100",
+            'error: "INVALID_MARK_RANGE"
+        };
+    }
+
+    // Update mark
+    TestEnrollmentWithDetails|error result = testEnrollmentDbConnection.updateMark(recordId, updateMarkReq.mark);
+    
+    if result is error {
+        log:printError("Failed to update mark", 'error = result);
+        return {
+            message: result.message(),
+            'error: "UPDATE_ERROR"
+        };
+    }
+
+    return {
+        message: "Mark updated successfully",
+        data: result
+    };
+}

@@ -83,3 +83,38 @@ public type StudentInfo record {
     int student_id;
     string full_name;
 };
+
+// Get test enrollments by course and test request type
+public type GetTestEnrollmentsByCourseAndTestResponse record {
+    string message;
+    TestEnrollmentWithDetails[] data;
+};
+
+// Test enrollment with detailed information
+public type TestEnrollmentWithDetails record {
+    int record_id;
+    int student_id;
+    string student_name;
+    int course_id;
+    string course_name;
+    int subject_id;
+    string subject_name;
+    int test_id;
+    string test_name;
+    string test_type;
+    decimal? mark;
+    string created_at;
+    string updated_at;
+};
+
+// Update mark request type
+public type UpdateMarkRequest record {
+    decimal mark;
+    int user_id;
+};
+
+// Update mark response type
+public type UpdateMarkResponse record {
+    string message;
+    TestEnrollmentWithDetails data;
+};

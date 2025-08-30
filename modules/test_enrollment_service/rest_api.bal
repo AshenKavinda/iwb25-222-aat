@@ -28,6 +28,30 @@ public service class TestEnrollmentRestService {
         
         return result;
     }
+    
+    // Get test enrollments by course ID and test ID
+    resource function get course/[int courseId]/test/[int testId]() returns GetTestEnrollmentsByCourseAndTestResponse|ErrorResponse|http:InternalServerError {
+        GetTestEnrollmentsByCourseAndTestResponse|ErrorResponse|error result = getTestEnrollmentsByCourseAndTest(courseId, testId);
+        
+        if result is error {
+            log:printError("Internal server error while getting test enrollments", 'error = result);
+            return http:INTERNAL_SERVER_ERROR;
+        }
+        
+        return result;
+    }
+    
+    // Update mark by record ID
+    resource function put [int recordId]/mark(UpdateMarkRequest updateMarkReq) returns UpdateMarkResponse|ErrorResponse|http:InternalServerError {
+        UpdateMarkResponse|ErrorResponse|error result = updateMarkByRecordId(recordId, updateMarkReq);
+        
+        if result is error {
+            log:printError("Internal server error while updating mark", 'error = result);
+            return http:INTERNAL_SERVER_ERROR;
+        }
+        
+        return result;
+    }
 }
 
 // Get test enrollment service instance
