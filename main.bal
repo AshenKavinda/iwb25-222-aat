@@ -110,5 +110,6 @@ public function main() returns error? {
     log:printInfo("  GET /api/reports/studentprogress?year={year} - Get student progress across terms (Manager only)");
     log:printInfo("  GET /api/reports/lowperformingsubjects?year={year}&threshold={threshold} - Get low performing subjects (Manager only)");
     log:printInfo("  GET /api/reports/topcourses?year={year}&term_type={term_type} - Get top performing courses (Manager only)");
+    log:printInfo("  GET /api/reports/student/{student_id}/marks - Get all marks for a student (No authentication required)");
     log:printInfo("Authentication API is ready to accept requests");
 }

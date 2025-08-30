@@ -111,3 +111,21 @@ public isolated function getTopPerformingCourses(string year, string termType) r
         data: result
     };
 }
+
+// Function to get all marks for a specific student
+public isolated function getStudentMarksReport(int studentId) returns StudentMarksReportResponse|ErrorResponse|error {
+    StudentMarksReport[]|error result = reportDbConnection.getStudentMarksReport(studentId);
+
+    if result is error {
+        log:printError("Failed to retrieve student marks report", 'error = result);
+        return {
+            message: result.message(),
+            'error: "FETCH_ERROR"
+        };
+    }
+
+    return {
+        message: "Student marks report retrieved successfully",
+        data: result
+    };
+}

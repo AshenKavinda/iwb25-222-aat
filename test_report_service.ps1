@@ -185,3 +185,40 @@ try {
 
 Write-Host ""
 Write-Host "=== All Tests Complete ==="
+
+# Step 10: Test Student Marks Report (No Authentication)
+Write-Host ""
+Write-Host "Step 10: Testing Student Marks Report (No Authentication Required)..."
+try {
+    # Test with a sample student ID (assuming student ID 1 exists)
+    $studentMarksUrl = "$reportsUrl/student/1/marks"
+    $response = Invoke-RestMethod -Uri $studentMarksUrl -Method GET
+    Write-Host "✓ Student Marks Report retrieved successfully"
+    Write-Host "Message: $($response.message)"
+    Write-Host "Number of mark records: $($response.data.Count)"
+    if ($response.data.Count -gt 0) {
+        $firstMark = $response.data[0]
+        Write-Host "Sample record: $($firstMark.full_name) - $($firstMark.subject_name) - $($firstMark.test_name): $($firstMark.mark)"
+    }
+    Write-Host ""
+} catch {
+    Write-Host "✗ Student Marks Report test failed: $($_.Exception.Message)"
+    Write-Host ""
+}
+
+# Test with invalid student ID
+Write-Host "Step 11: Testing Invalid Student ID..."
+try {
+    $invalidStudentUrl = "$reportsUrl/student/0/marks"
+    $response = Invoke-RestMethod -Uri $invalidStudentUrl -Method GET
+    Write-Host "✗ Invalid student ID test failed - should have rejected student ID 0"
+} catch {
+    if ($_.Exception.Response.StatusCode -eq "BadRequest") {
+        Write-Host "✓ Invalid student ID test passed - Bad request correctly returned"
+    } else {
+        Write-Host "? Invalid student ID test: $($_.Exception.Message)"
+    }
+}
+
+Write-Host ""
+Write-Host "=== All Tests Complete ==="

@@ -225,6 +225,45 @@ public isolated class ReportDatabaseConnection {
 
         return courses;
     }
+
+    // Get all marks for a specific student
+    public isolated function getStudentMarksReport(int studentId) returns StudentMarksReport[]|error {
+        sql:ParameterizedQuery selectQuery = `
+            SELECT s.student_id, s.full_name, sub.name AS subject_name, c.name AS course_name,
+                   t.t_name AS test_name, t.t_type AS test_type, t.year, stcs.mark,
+                   t.created_at AS test_date
+            FROM student_test_course_subject stcs
+            JOIN student s ON stcs.student_id = s.student_id
+            JOIN subject sub ON stcs.subject_id = sub.subject_id
+            JOIN course c ON stcs.course_id = c.course_id
+            JOIN test t ON stcs.test_id = t.test_id
+            WHERE s.student_id = ${studentId}
+                  AND s.deleted_at IS NULL AND sub.deleted_at IS NULL 
+                  AND c.deleted_at IS NULL AND t.deleted_at IS NULL
+            ORDER BY t.year DESC, t.t_type, sub.name, t.created_at DESC
+        `;
+        
+        stream<record {}, error?> resultStream = self.dbClient->query(selectQuery);
+        StudentMarksReport[] marksReports = [];
+
+        check from record {} markData in resultStream
+            do {
+                StudentMarksReport markReport = {
+                    student_id: <int>markData["student_id"],
+                    full_name: <string>markData["full_name"],
+                    subject_name: <string>markData["subject_name"],
+                    course_name: <string>markData["course_name"],
+                    test_name: <string>markData["test_name"],
+                    test_type: <string>markData["test_type"],
+                    year: <string>markData["year"],
+                    mark: markData["mark"] is () ? 0.0 : <decimal>markData["mark"],
+                    test_date: markData["test_date"] is () ? () : markData["test_date"].toString()
+                };
+                marksReports.push(markReport);
+            };
+
+        return marksReports;
+    }
 }
 
 // Global database connection instance
