@@ -1,12 +1,6 @@
 import ballerina/sql;
 import ballerinax/mysql;
-
-// Database configuration
-configurable string DB_HOST = "127.0.0.1";
-configurable int DB_PORT = 3306;
-configurable string DB_USERNAME = "root";
-configurable string DB_PASSWORD = "Ashen#321";
-configurable string DB_NAME = "school_performance";
+import ashen/school_performance_panel.database_config;
 
 // Valid test types
 public final readonly & string[] VALID_TEST_TYPES = ["tm1", "tm2", "tm3"];
@@ -16,12 +10,13 @@ public isolated class TestDatabaseConnection {
     private final mysql:Client dbClient;
 
     public isolated function init() returns error? {
+        database_config:DatabaseConfig dbConfig = database_config:getDatabaseConfig();
         self.dbClient = check new (
-            host = DB_HOST,
-            port = DB_PORT,
-            user = DB_USERNAME,
-            password = DB_PASSWORD,
-            database = DB_NAME
+            host = dbConfig.host,
+            port = dbConfig.port,
+            user = dbConfig.username,
+            password = dbConfig.password,
+            database = dbConfig.database
         );
     }
 
