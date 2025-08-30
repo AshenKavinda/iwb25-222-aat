@@ -10,6 +10,7 @@ import school_performance_panel.student_course_service;
 import school_performance_panel.student_subject_enrollement_service;
 import school_performance_panel.course_subject_enrollment_service;
 import school_performance_panel.test_enrollment_service;
+import school_performance_panel.report_service;
 
 // HTTP listener configuration
 listener http:Listener httpListener = new (8080);
@@ -29,6 +30,7 @@ public function main() returns error? {
     check httpListener.attach(student_subject_enrollement_service:getStudentSubjectEnrollmentService(), "/api/student-subject-enrollment");
     check httpListener.attach(course_subject_enrollment_service:getCourseSubjectEnrollmentService(), "/api/course-subject-enrollment");
     check httpListener.attach(test_enrollment_service:getTestEnrollmentService(), "/api/test-enrollment");
+    check httpListener.attach(report_service:getReportService(), "/api/reports");
     
     log:printInfo("School Performance Panel Authentication API started on port 8080");
     log:printInfo("API Endpoints:");
@@ -102,5 +104,11 @@ public function main() returns error? {
     log:printInfo("  GET /api/course-subject-enrollment/teacher/{teacher_id} - Get all enrollments by teacher ID with course details (Officer only)");
     log:printInfo("  POST /api/test-enrollment - Add test enrollments for course and tests (Officer only)");
     log:printInfo("  DELETE /api/test-enrollment - Delete test enrollments for course and tests (Officer only)");
+    log:printInfo("  GET /api/reports/topstudents?year={year}&term_type={term_type}&limitCount={limitCount} - Get top performing students (Manager only)");
+    log:printInfo("  GET /api/reports/avgmarks?year={year}&term_type={term_type} - Get average marks per subject (Manager only)");
+    log:printInfo("  GET /api/reports/teacherperformance - Get teacher performance report (Manager only)");
+    log:printInfo("  GET /api/reports/studentprogress?year={year} - Get student progress across terms (Manager only)");
+    log:printInfo("  GET /api/reports/lowperformingsubjects?year={year}&threshold={threshold} - Get low performing subjects (Manager only)");
+    log:printInfo("  GET /api/reports/topcourses?year={year}&term_type={term_type} - Get top performing courses (Manager only)");
     log:printInfo("Authentication API is ready to accept requests");
 }
