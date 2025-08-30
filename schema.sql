@@ -119,6 +119,8 @@ CREATE TABLE student_test_course_subject (
     subject_id INT NOT NULL,
     test_id INT NOT NULL,
     mark DECIMAL(5,2) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES student(student_id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES course(course_id) ON DELETE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subject(subject_id) ON DELETE CASCADE,
