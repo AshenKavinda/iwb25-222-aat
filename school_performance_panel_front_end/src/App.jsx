@@ -10,6 +10,7 @@ import UpdateMarks from './components/teacher/UpdateMarks';
 import StudentManagement from './components/students/StudentManagement';
 import SubjectManagement from './components/subjects/SubjectManagement';
 import CourseManagement from './components/courses/CourseManagement';
+import TestManagement from './components/tests/TestManagement';
 import { useAuth } from './hooks/useAuth';
 import './App.css';
 
@@ -88,6 +89,15 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <CourseManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/tests" 
+        element={
+          <ProtectedRoute>
+            <TestManagement />
           </ProtectedRoute>
         } 
       />
