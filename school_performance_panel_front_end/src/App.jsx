@@ -7,6 +7,7 @@ import Register from './components/auth/Register';
 import Dashboard from './components/dashboards/Dashboard';
 import Profile from './components/profile/Profile';
 import UpdateMarks from './components/teacher/UpdateMarks';
+import StudentManagement from './components/students/StudentManagement';
 import { useAuth } from './hooks/useAuth';
 import './App.css';
 
@@ -58,6 +59,15 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <UpdateMarks />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/students" 
+        element={
+          <ProtectedRoute>
+            <StudentManagement />
           </ProtectedRoute>
         } 
       />
