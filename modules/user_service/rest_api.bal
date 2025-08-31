@@ -20,7 +20,7 @@ public service class UserRestService {
         }
 
         // Validate access token and check if user role is officer
-        UserRole[] roles = ["officer","guest"];
+        UserRole[] roles = ["officer"];
         boolean|auth:ErrorResponse roleCheck = auth:hasAnyRole(authorization, roles);
 
         if roleCheck is auth:ErrorResponse {
