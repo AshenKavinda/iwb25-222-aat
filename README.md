@@ -266,6 +266,7 @@ cp Config.toml.example Config.toml
 
 # Run in development mode
 bal run
+```
 
 ## Project Structure
 
@@ -302,6 +303,7 @@ school_performance_panel/
     │   └── school_performance_panel.jar
     └── cache/
 ```
+
 
 ### Module Responsibilities
 
