@@ -1,0 +1,268 @@
+/* Student Course Form Styles */
+.student-course-form {
+  max-width: 700px;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 10px;
+  border: 3px solid #dee2e6;
+}
+
+.form-section {
+  margin-bottom: 24px;
+}
+
+.form-section h4 {
+  color: #000000;
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+}
+
+.current-enrollment {
+  background: #e8f4fd;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.current-enrollment p {
+  color: #000000;
+  margin: 0;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #000000;
+  font-size: 16px;
+  text-shadow: none;
+}
+
+.required {
+  color: #ff0000;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.form-select {
+  width: 100%;
+  padding: 15px 18px;
+  border: 3px solid #000000;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: 1.5;
+  font-weight: 600;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.form-select option {
+  color: #000000;
+  background-color: #ffffff;
+  font-weight: 500;
+}
+
+.form-select.error {
+  border-color: #ff0000;
+  background-color: #ffebee;
+  color: #000000;
+}
+
+.form-select.error:focus {
+  box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.25);
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+.error-message {
+  display: block;
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #ff0000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 2px solid #cc0000;
+}
+
+/* Selected Students */
+.selected-students {
+  background: #e8f5e8;
+  border: 2px solid #28a745;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.selected-students h5 {
+  color: #000000;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.student-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.student-chip {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #28a745;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.student-name {
+  color: #000000;
+  margin-right: 8px;
+}
+
+.remove-btn {
+  background: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background-color 0.2s;
+}
+
+.remove-btn:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.remove-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.form-actions .btn {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 120px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  border-color: #0056b3;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0056b3;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
+  border-color: #004085;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+  border-color: #545b62;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #545b62;
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+  transform: translateY(-2px);
+  border-color: #495057;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-course-form {
+    padding: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .student-chips {
+    flex-direction: column;
+  }
+
+  .student-chip {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-course-form {
+    padding: 12px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  .form-select {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .form-section h4 {
+    font-size: 18px;
+  }
+}
