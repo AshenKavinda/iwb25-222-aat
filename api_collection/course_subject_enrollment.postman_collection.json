@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "16b28bef-5276-4bb5-9e4a-152908652ebb",
+		"name": "course_subject_enrollment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-16b28bef-5276-4bb5-9e4a-152908652ebb?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subject_id\": 6,\r\n    \"course_id\": 12,\r\n    \"teacher_id\": 5,\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/course-subject-enrollment",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course-subject-enrollment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_record_id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subject_id\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/course-subject-enrollment/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course-subject-enrollment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_record_id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subject_id\": 6\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/course-subject-enrollment/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course-subject-enrollment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all enrollments by course ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subject_id\": 6,\r\n    \"course_id\": 12,\r\n    \"teacher_id\": 5,\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/course-subject-enrollment/course/12",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course-subject-enrollment",
+						"course",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all enrollments by teacher ID with course details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subject_id\": 6,\r\n    \"course_id\": 12,\r\n    \"teacher_id\": 5,\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/course-subject-enrollment/teacher/5",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course-subject-enrollment",
+						"teacher",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

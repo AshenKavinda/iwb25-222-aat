@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "43b02465-32ec-4ba8-adab-0146d9c96257",
+		"name": "report_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-43b02465-32ec-4ba8-adab-0146d9c96257?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "Top Performing Students",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1Nzk4MTEsICJuYmYiOjE3NTY1NzYyMTEsICJpYXQiOjE3NTY1NzYyMTEsICJqdGkiOiIwMWYwODVjOS1jNjQ3LTFjYmUtYjE0OC1mMmU0YWFlZDI2ZTMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.f6GOJlSFxwqaYSA7TsrTExJayysFzlCEUUzY2Xrzyms",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/reports/topstudents?year=2025&term_type=tm1&limitCount=10",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"topstudents"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "term_type",
+							"value": "tm1"
+						},
+						{
+							"key": "limitCount",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Average Marks per Subject",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1Nzk4MTEsICJuYmYiOjE3NTY1NzYyMTEsICJpYXQiOjE3NTY1NzYyMTEsICJqdGkiOiIwMWYwODVjOS1jNjQ3LTFjYmUtYjE0OC1mMmU0YWFlZDI2ZTMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.f6GOJlSFxwqaYSA7TsrTExJayysFzlCEUUzY2Xrzyms",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/reports/avgmarks?year=2025&term_type=tm1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"avgmarks"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "term_type",
+							"value": "tm1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher Performance Report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1Nzk4MTEsICJuYmYiOjE3NTY1NzYyMTEsICJpYXQiOjE3NTY1NzYyMTEsICJqdGkiOiIwMWYwODVjOS1jNjQ3LTFjYmUtYjE0OC1mMmU0YWFlZDI2ZTMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.f6GOJlSFxwqaYSA7TsrTExJayysFzlCEUUzY2Xrzyms",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/reports/teacherperformance",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"teacherperformance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student Progress Across Terms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1Nzk4MTEsICJuYmYiOjE3NTY1NzYyMTEsICJpYXQiOjE3NTY1NzYyMTEsICJqdGkiOiIwMWYwODVjOS1jNjQ3LTFjYmUtYjE0OC1mMmU0YWFlZDI2ZTMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.f6GOJlSFxwqaYSA7TsrTExJayysFzlCEUUzY2Xrzyms",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/reports/studentprogress?year=2025",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"studentprogress"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Low Performing Subjects",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NzU1MTcsICJuYmYiOjE3NTY1NzE5MTcsICJpYXQiOjE3NTY1NzE5MTcsICJqdGkiOiIwMWYwODViZi1jNmRiLTE2NDgtOTdjMi1lZjNkOTRiOWE4NmMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.xc2pOkCds41eC5j6EupSbZL7STzklOMACCCKNDuH_m0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/reports/lowperformingsubjects?year=2024&threshold=50",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"lowperformingsubjects"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2024"
+						},
+						{
+							"key": "threshold",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top Performing Courses",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1Nzk4MTEsICJuYmYiOjE3NTY1NzYyMTEsICJpYXQiOjE3NTY1NzYyMTEsICJqdGkiOiIwMWYwODVjOS1jNjQ3LTFjYmUtYjE0OC1mMmU0YWFlZDI2ZTMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.f6GOJlSFxwqaYSA7TsrTExJayysFzlCEUUzY2Xrzyms",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/reports/topcourses?year=2025&term_type=tm1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"topcourses"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "term_type",
+							"value": "tm1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "full_mark_report",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1Nzk4MTEsICJuYmYiOjE3NTY1NzYyMTEsICJpYXQiOjE3NTY1NzYyMTEsICJqdGkiOiIwMWYwODVjOS1jNjQ3LTFjYmUtYjE0OC1mMmU0YWFlZDI2ZTMiLCAidXNlcl9pZCI6NiwgImVtYWlsIjoibWFuYWdlckBleGFtcGxlLmNvbSIsICJyb2xlIjoibWFuYWdlciIsICJ0eXBlIjoiYWNjZXNzIn0.f6GOJlSFxwqaYSA7TsrTExJayysFzlCEUUzY2Xrzyms",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/reports/student/1/marks",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"student",
+						"1",
+						"marks"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

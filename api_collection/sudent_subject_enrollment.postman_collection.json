@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "bb0493ce-3a4b-42e9-84ee-6acb81690528",
+		"name": "sudent_subject_enrollment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-bb0493ce-3a4b-42e9-84ee-6acb81690528?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "Add Common Subjects to All Students in Course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NDI5MDQsICJuYmYiOjE3NTY1MzkzMDQsICJpYXQiOjE3NTY1MzkzMDQsICJqdGkiOiIwMWYwODU3My1kN2ZlLTE4NDAtYmE4OS00Mzk2NDM4ZmI3YzgiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.Wz8E6Xqavto6s7QBoi7MXepzzMjaAk8yoamuaEWGiUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"course_id\": 12,\r\n    \"subject_ids\": [7,8],\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student-subject-enrollment/common",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-subject-enrollment",
+						"common"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Subjects to Specific Student",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NDI5MDQsICJuYmYiOjE3NTY1MzkzMDQsICJpYXQiOjE3NTY1MzkzMDQsICJqdGkiOiIwMWYwODU3My1kN2ZlLTE4NDAtYmE4OS00Mzk2NDM4ZmI3YzgiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.Wz8E6Xqavto6s7QBoi7MXepzzMjaAk8yoamuaEWGiUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"student_id\": 5,\r\n  \"course_id\": 12,\r\n  \"subject_ids\": [6],\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student-subject-enrollment/student",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-subject-enrollment",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Subject Enrollments with Details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NDI5MDQsICJuYmYiOjE3NTY1MzkzMDQsICJpYXQiOjE3NTY1MzkzMDQsICJqdGkiOiIwMWYwODU3My1kN2ZlLTE4NDAtYmE4OS00Mzk2NDM4ZmI3YzgiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.Wz8E6Xqavto6s7QBoi7MXepzzMjaAk8yoamuaEWGiUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"course_id\": 12,\r\n    \"subject_ids\": [7,8],\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student-subject-enrollment/student/5/course/12",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-subject-enrollment",
+						"student",
+						"5",
+						"course",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Subject Enrollment by Record ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NDI5MDQsICJuYmYiOjE3NTY1MzkzMDQsICJpYXQiOjE3NTY1MzkzMDQsICJqdGkiOiIwMWYwODU3My1kN2ZlLTE4NDAtYmE4OS00Mzk2NDM4ZmI3YzgiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.Wz8E6Xqavto6s7QBoi7MXepzzMjaAk8yoamuaEWGiUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"course_id\": 12,\r\n    \"subject_ids\": [7,8],\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student-subject-enrollment/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-subject-enrollment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student Subject Enrollment Record",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NDI5MDQsICJuYmYiOjE3NTY1MzkzMDQsICJpYXQiOjE3NTY1MzkzMDQsICJqdGkiOiIwMWYwODU3My1kN2ZlLTE4NDAtYmE4OS00Mzk2NDM4ZmI3YzgiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.Wz8E6Xqavto6s7QBoi7MXepzzMjaAk8yoamuaEWGiUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"subject_id\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student-subject-enrollment/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-subject-enrollment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student Subject Enrollment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NDI5MDQsICJuYmYiOjE3NTY1MzkzMDQsICJpYXQiOjE3NTY1MzkzMDQsICJqdGkiOiIwMWYwODU3My1kN2ZlLTE4NDAtYmE4OS00Mzk2NDM4ZmI3YzgiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.Wz8E6Xqavto6s7QBoi7MXepzzMjaAk8yoamuaEWGiUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"course_id\": 12,\r\n    \"subject_ids\": [7,8],\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student-subject-enrollment/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-subject-enrollment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

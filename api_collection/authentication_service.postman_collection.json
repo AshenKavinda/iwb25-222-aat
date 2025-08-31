@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "60bdffc4-0f60-4dad-872b-ad0ce8d137aa",
+		"name": "authentication_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-60bdffc4-0f60-4dad-872b-ad0ce8d137aa?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "guest_signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"jane.smith@example.com\",\r\n  \"password\": \"mySecurePass456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/login",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "officer_logIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"officer@example.com\",\r\n  \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/login",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "teacher_login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"teacher@example.com\",\r\n  \"password\": \"mySecurePass456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/login",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager_login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"manager@example.com\",\r\n   \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/login",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refresh_token\":\"eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJqYW5lLnNtaXRoQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtcmVmcmVzaCJdLCAiZXhwIjoxNzU2NTUwODUzLCAibmJmIjoxNzU1OTQ2MDUzLCAiaWF0IjoxNzU1OTQ2MDUzLCAianRpIjoiMDFmMDgwMGUtOTJkNy0xZDBlLWEzOTMtNjAzOWI0NDFlNGM5IiwgInVzZXJfaWQiOjIsICJlbWFpbCI6ImphbmUuc21pdGhAZXhhbXBsZS5jb20iLCAicm9sZSI6Imd1ZXN0IiwgInR5cGUiOiJyZWZyZXNoIn0.pz8Ogmz0x4eGK2FgHI7afXyaPIsEXte0SLjKlKCPQgs\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/refresh",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"jane@example.com\",\r\n  \"password\": \"mySecurePass456\",\r\n  \"name\": \"Jane Smith\",\r\n  \"phone_number\": \"1234567890\",\r\n  \"dob\": \"1995-03-15\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/register",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate_token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJqYW5lLnNtaXRoQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTU5NTU5NDQsICJuYmYiOjE3NTU5NTIzNDQsICJpYXQiOjE3NTU5NTIzNDQsICJqdGkiOiIwMWYwODAxZC0zODkyLTEzYzAtYWI0ZC03NTNkOGYzODIyZTAiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoiamFuZS5zbWl0aEBleGFtcGxlLmNvbSIsICJyb2xlIjoiZ3Vlc3QiLCAidHlwZSI6ImFjY2VzcyJ9.CO2qoqCvpkWJeQoIY75iz-HM85QwoLo7061dvJhO_p8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/auth/validate",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsICJhdWQiOlsic2Nob29sLXBlcmZvcm1hbmNlLWFwaSJdLCAiZXhwIjoxNzU1OTMyNjAzLCAibmJmIjoxNzU1OTI5MDAzLCAiaWF0IjoxNzU1OTI5MDAzLCAianRpIjoiMDFmMDdmZTYtZTA0MC0xNDdlLWE5NzAtZjljNGFjNTJmYTBkIiwgInVzZXJfaWQiOjEsICJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwgInJvbGUiOiJndWVzdCIsICJ0eXBlIjoiYWNjZXNzIn0.4qNhTzbEYqcrJMnD3AKivPqxbYQ9vV-r52VzIlzgYS8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/health",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJqYW5lLnNtaXRoQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTU5NTU5NDQsICJuYmYiOjE3NTU5NTIzNDQsICJpYXQiOjE3NTU5NTIzNDQsICJqdGkiOiIwMWYwODAxZC0zODkyLTEzYzAtYWI0ZC03NTNkOGYzODIyZTAiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoiamFuZS5zbWl0aEBleGFtcGxlLmNvbSIsICJyb2xlIjoiZ3Vlc3QiLCAidHlwZSI6ImFjY2VzcyJ9.CO2qoqCvpkWJeQoIY75iz-HM85QwoLo7061dvJhO_p8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user@gmail.com\",\r\n  \"password\": \"Password#123\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/auth/me",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

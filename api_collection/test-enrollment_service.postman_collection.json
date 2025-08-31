@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "f43135b4-2614-4c0a-abb4-8ec5812ddaef",
+		"name": "test-enrollment_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-f43135b4-2614-4c0a-abb4-8ec5812ddaef?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "assign",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"course_id\": 12,\r\n  \"test_ids\": [2],\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/test-enrollment",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test-enrollment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"course_id\": 12,\r\n  \"test_ids\": [2],\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/test-enrollment",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test-enrollment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Test Enrollments by Course and Test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subject_id\": 6,\r\n    \"course_id\": 12,\r\n    \"teacher_id\": 5,\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/test-enrollment/course/12/test/2",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test-enrollment",
+						"course",
+						"12",
+						"test",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mark",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1NTUwODQsICJuYmYiOjE3NTY1NTE0ODQsICJpYXQiOjE3NTY1NTE0ODQsICJqdGkiOiIwMWYwODU5MC0zM2Q3LTEwNjAtYTljZC00MDg1MTE3MjYzM2EiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.ZkuDYF_qjWpTaJoCJw-knqVMZCqWoTfFisTu3Cdy_S0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"mark\": 92.5,\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/test-enrollment/6/mark",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test-enrollment",
+						"6",
+						"mark"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

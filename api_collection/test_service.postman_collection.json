@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "8929d7a7-7f78-4841-a42c-5180375ebd15",
+		"name": "test_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-8929d7a7-7f78-4841-a42c-5180375ebd15?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"t_name\": \"Mathematics Term 1 Test\",\r\n  \"t_type\": \"tm1\",\r\n  \"year\": \"2025\",\r\n  \"subject_id\": 5,\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/test",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/test/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"t_name\": \"Mathematics Term 1 Test\",\r\n  \"t_type\": \"tm1\",\r\n  \"year\": \"2024\",\r\n  \"subject_id\": 5,\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/test/2",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleted",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/deleted",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"deleted"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restore",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/1/restore",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"1",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter_by_type",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/types/tm1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"types",
+						"tm1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter_by_year",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/year/2024",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"year",
+						"2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search_by_name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/search/name/m",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"search",
+						"name",
+						"m"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "years",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/test/years",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"years"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

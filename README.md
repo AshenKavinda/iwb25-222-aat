@@ -55,117 +55,38 @@ The system provides RESTful APIs for each service. All endpoints require appropr
 
 ### Key API Endpoints
 
-#### Authentication & User Management
-- **POST** `/api/auth/login` - User login
-- **POST** `/api/auth/register` - Self-registration for guests
-- **POST** `/api/auth/refresh` - Token refresh
-- **GET** `/api/auth/me` - Get current user profile
-- **POST** `/api/auth/validate` - Validate access token
-
-#### Student Management
-- **GET** `/api/students` - List all students
-- **POST** `/api/students` - Create new student
-- **GET** `/api/students/{id}` - Get student details
-- **PUT** `/api/students/{id}` - Update student information
-- **DELETE** `/api/students/{id}` - Delete student (soft delete)
-
-#### Course & Subject Management
-- **GET** `/api/courses` - List all courses
-- **POST** `/api/courses` - Create new course
-- **GET** `/api/subjects` - List all subjects
-- **POST** `/api/subjects` - Create new subject
-
-#### Test & Assessment
-- **GET** `/api/tests` - List all tests
-- **POST** `/api/tests` - Create new test
-- **GET** `/api/tests/{id}/results` - Get test results
-- **POST** `/api/tests/{id}/enroll` - Enroll students in test
-
-#### Performance Reports
-- **GET** `/api/reports/student/{id}` - Individual student performance report
-- **GET** `/api/reports/course/{id}` - Course performance analytics
-- **GET** `/api/reports/test/{id}` - Test performance analysis
-
-#### Health Check
-- **GET** `/api/health` - Service health status
-
-### Sample API Usage
-
-#### Student Registration and Course Enrollment
-**1. Login to the System**
-```bash
-curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "teacher@school.edu",
-    "password": "teacherpass123"
-  }'
-```
-
-**2. Create a New Student**
-```bash
-curl -X POST http://localhost:8080/api/students \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <access_token>" \
-  -d '{
-    "name": "John Smith",
-    "email": "john.smith@student.edu",
-    "student_id": "STU2024001",
-    "grade": "10"
-  }'
-```
-
-**3. Enroll Student in Course**
-```bash
-curl -X POST http://localhost:8080/api/student-courses \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <access_token>" \
-  -d '{
-    "student_id": 1,
-    "course_id": 1,
-    "enrollment_date": "2024-09-01"
-  }'
-```
-
-**4. Generate Performance Report**
-```bash
-curl -X GET http://localhost:8080/api/reports/student/1 \
-  -H "Authorization: Bearer <access_token>"
-```
-
-## Database Schema
-
-The system uses a comprehensive MySQL database schema with the following key tables:
-
-- **users** - System users (managers, teachers, officers, guests)
-- **students** - Student information and profiles
-- **courses** - Course definitions and details
-- **subjects** - Subject information
-- **tests** - Test and assessment definitions
-- **enrollments** - Various enrollment relationships
-- **test_results** - Student test scores and results
-- **reports** - Generated performance reports
+## The api_collection directory contains the entire API collection (POSTMAN).
 
 ## Performance Analytics Features
 
-### Student Performance Tracking
-- Individual student progress over time
-- Subject-wise performance analysis
-- Test score trends and patterns
-- Attendance and participation metrics
+The School Performance Analysis System provides comprehensive analytics capabilities to help educational institutions make data-driven decisions. The analytics features are primarily accessible to managers and administrators, with some public access for student-specific reports.
 
-### Course Analytics
-- Course completion rates
-- Average performance by course
-- Subject difficulty analysis
-- Student engagement metrics
+### Key Analytics Reports
 
-### Institutional Insights
-- School-wide performance trends
-- Teacher effectiveness metrics
-- Resource utilization analysis
-- Predictive performance modeling
-```
+- **Top Performing Students**: Identify high-achieving students by academic year and term (Term 1, Term 2, Term 3) with configurable result limits
+- **Average Marks by Subject**: Analyze subject-wise performance across different courses and terms to identify strengths and areas for improvement
+- **Teacher Performance Analytics**: Evaluate teacher effectiveness based on average student marks in their subjects
+- **Student Progress Tracking**: Monitor individual student performance trends across multiple terms to track academic growth
+- **Low Performing Subjects**: Identify subjects with average marks below a configurable threshold to target intervention strategies
+- **Top Performing Courses**: Rank courses by average performance to recognize successful programs and teaching methodologies
+- **Individual Student Reports**: Detailed marks breakdown for specific students across all subjects, tests, and terms
+
+### Analytics Features
+
+- **Role-based Access**: Most analytics require manager-level permissions, ensuring data security and privacy
+- **Flexible Filtering**: Filter reports by academic year, term type, and performance thresholds
+- **Real-time Data**: Reports are generated from live database queries for up-to-date insights
+- **Comprehensive Coverage**: Analytics cover students, teachers, courses, subjects, and overall institutional performance
+- **Performance Thresholds**: Configurable thresholds for identifying low-performing areas
+- **Trend Analysis**: Track performance changes across terms and academic years
+
+### Use Cases
+
+- **Institutional Planning**: Use performance data to allocate resources and plan curriculum improvements
+- **Teacher Development**: Identify areas where teachers may need additional support or training
+- **Student Intervention**: Early identification of struggling students for targeted academic support
+- **Curriculum Evaluation**: Assess the effectiveness of different courses and subjects
+- **Stakeholder Reporting**: Generate comprehensive reports for school boards, parents, and regulatory bodies
 
 ## System Configuration
 
@@ -191,6 +112,10 @@ REFRESH_TOKEN_EXPIRY_TIME = 604800  # 7 days in seconds
 ### Configuration Details
 
 **Database Configuration:**
+- In database directory have database schema and dumy data set.
+  - Initial officer
+    - username : officer@example.com
+    - password : password123
 - Update the database credentials with your MySQL settings
 - Change `DB_PASSWORD` to your actual database password
 - Modify `DB_NAME` if you want to use a different database name
@@ -218,7 +143,7 @@ REFRESH_TOKEN_EXPIRY_TIME = 604800  # 7 days in seconds
 2. **Setup Database**
    - Create a MySQL database named `school_performance`
    - Run the schema from `schema.sql` to create all required tables
-   - Optionally, run `dummydata.sql` to populate with sample data
+   - run `dummydata.sql` to populate with sample data
 
 3. **Configure the System**
    - Update `Config.toml` with your database credentials
@@ -245,30 +170,6 @@ The system will start on port 8080 (configurable) and all services will be avail
 - **SQL Injection Protection**: Parameterized queries and input sanitization
 - **Data Privacy**: Soft delete functionality preserves audit trails
 - **Role-based Access Control**: Granular permissions based on user roles
-
-## System Testing
-
-The project includes comprehensive test coverage for all services:
-
-### Running Tests
-```bash
-# Run all tests
-bal test
-
-# Run tests for specific service
-bal test modules/student_service
-
-# Run tests with coverage
-bal test --coverage
-```
-
-### Test Scripts
-The project includes PowerShell test scripts for API testing:
-- `test_api.ps1` - General API testing
-- `test_student_service.ps1` - Student service testing
-- `test_course_service.ps1` - Course service testing
-- `test_report_service.ps1` - Report service testing
-- And many more...
 
 ## Monitoring and Logging
 
@@ -367,27 +268,6 @@ cp Config.toml.example Config.toml
 bal run
 ```
 
-### Testing in Development
-```bash
-# Run unit tests
-bal test
-
-# Run integration tests
-.\test_api.ps1
-
-# Run specific service tests
-.\test_student_service.ps1
-```
-
-### Building for Production
-```bash
-# Build executable JAR
-bal build
-
-# The executable will be in target/bin/
-java -jar target/bin/school_performance_panel.jar
-```
-
 ## Project Structure
 
 ```
@@ -424,6 +304,7 @@ school_performance_panel/
     └── cache/
 ```
 
+
 ### Module Responsibilities
 
 - **authentication_service**: Handles login, registration, JWT token management
@@ -436,26 +317,186 @@ school_performance_panel/
 - **enrollment services**: Various enrollment and relationship management
 - **database_config**: Shared database connection and configuration
 
-## Contributing
+## Detailed Service Explanations
 
-### Development Guidelines
-1. Follow Ballerina coding conventions and best practices
-2. Write comprehensive unit tests for new features
-3. Update API documentation for any endpoint changes
-4. Ensure all existing tests pass before submitting changes
-5. Use meaningful commit messages and branch names
+### Core Services
 
-### Code Style
-- Use descriptive variable and function names
-- Add appropriate comments for complex logic
-- Follow consistent indentation and formatting
-- Implement proper error handling and logging
+#### 1. Authentication Service (`authentication_service`)
+The Authentication Service is the central security component that manages user authentication and authorization across the entire system.
 
-### Testing Requirements
-- Unit tests for all new functions and services
-- Integration tests for API endpoints
-- Test coverage should not decrease
-- Include both positive and negative test cases
+**Key Features:**
+- **User Login**: Validates user credentials and generates JWT access and refresh tokens
+- **User Registration**: Allows guest users to register with the system (automatically assigned guest role)
+- **Token Management**: Handles JWT token generation, validation, and refresh
+- **Password Security**: Implements secure password hashing and validation
+- **Role-based Authorization**: Provides helper functions to check user roles and permissions
+- **Token Validation**: Validates access tokens and ensures user session integrity
+
+**Security Features:**
+- Email format validation
+- Password strength requirements (minimum 8 characters, must contain letters and numbers)
+- JWT token expiration management
+- Secure token storage and transmission
+
+#### 2. User Service (`user_service`)
+The User Service manages all user-related operations including profile management and administrative user functions.
+
+**Key Features:**
+- **User Profile Management**: Create, read, update, and delete user profiles
+- **Role Management**: Assign and update user roles (Manager, Teacher, Officer, Guest)
+- **Soft Delete Functionality**: Safely remove users while preserving data integrity
+- **User Search**: Search users by email with wildcard pattern matching
+- **Bulk User Operations**: Handle multiple user operations efficiently
+- **User Restoration**: Restore previously deleted users
+
+**Administrative Functions:**
+- Add users with profiles (email, password, role, personal information)
+- Update user information (excluding email and password for security)
+- Soft delete and restore users
+- Retrieve all users or deleted users
+- Search functionality for user management
+
+#### 3. Student Service (`student_service`)
+The Student Service handles comprehensive student lifecycle management with officer-based access control.
+
+**Key Features:**
+- **Student Registration**: Add new students with parent NIC validation
+- **Student Profile Management**: Update student information (name, date of birth, parent details)
+- **Officer-based Access Control**: All operations require officer user validation
+- **Soft Delete & Restore**: Safely manage student records with audit trails
+- **Student Search**: Search students by full name with pattern matching
+- **Data Integrity**: Ensures students are properly linked to authorized officers
+
+**Validation & Security:**
+- User role validation (must be officer)
+- Student ownership validation
+- Parent NIC tracking for family relationships
+- Comprehensive error handling and logging
+
+#### 4. Course Service (`course_service`)
+The Course Service manages academic course definitions and administration.
+
+**Key Features:**
+- **Course Creation**: Add new courses with hall assignments and academic years
+- **Course Management**: Update course details and manage course lifecycle
+- **Officer Authorization**: All course operations require officer-level permissions
+- **Soft Delete Functionality**: Preserve course history while removing active courses
+- **Course Search**: Find courses by name or filter by academic year
+- **Hall Management**: Track course locations and facilities
+
+**Administrative Features:**
+- Course restoration from deleted state
+- Bulk course retrieval and management
+- Year-based filtering for academic planning
+- Comprehensive validation of course data
+
+#### 5. Subject Service (`subject_service`)
+The Subject Service manages academic subject definitions and curriculum structure.
+
+**Key Features:**
+- **Subject Definition**: Create and manage academic subjects
+- **Curriculum Management**: Organize subjects within the academic framework
+- **Officer Control**: Subject management restricted to authorized officers
+- **Subject Lifecycle**: Full CRUD operations with soft delete capabilities
+- **Subject Search**: Find subjects by name or code
+- **Academic Organization**: Support for subject categorization and prerequisites
+
+#### 6. Test Service (`test_service`)
+The Test Service handles test creation, administration, and management for academic assessments.
+
+**Key Features:**
+- **Test Creation**: Create tests with type validation (Term 1, Term 2, Term 3)
+- **Test Scheduling**: Manage test dates, subjects, and academic years
+- **Officer Authorization**: Test management restricted to authorized personnel
+- **Test Types**: Support for different term-based assessments
+- **Subject Association**: Link tests to specific academic subjects
+- **Test Lifecycle Management**: Full CRUD operations with soft delete
+
+**Advanced Features:**
+- Test filtering by year, type, and subject
+- Test search by name
+- Available years retrieval for academic planning
+- Comprehensive validation of test parameters
+
+#### 7. Report Service (`report_service`)
+The Report Service provides comprehensive analytics and performance reporting capabilities.
+
+**Key Features:**
+- **Top Performing Students**: Identify high-achieving students with configurable limits
+- **Average Marks Analysis**: Analyze subject-wise performance across courses and terms
+- **Teacher Performance Metrics**: Evaluate teacher effectiveness based on student outcomes
+- **Student Progress Tracking**: Monitor academic growth across multiple terms
+- **Low Performing Subjects**: Identify areas needing intervention
+- **Top Performing Courses**: Recognize successful academic programs
+- **Individual Student Reports**: Detailed performance breakdowns
+
+**Analytics Capabilities:**
+- Role-based access (primarily manager access)
+- Flexible filtering by year, term, and performance thresholds
+- Real-time data generation from live database queries
+- Comprehensive coverage of academic performance metrics
+
+### Enrollment Services
+
+#### 8. Course Subject Enrollment Service (`course_subject_enrollment_service`)
+Manages the relationships between courses and subjects in the curriculum.
+
+**Key Features:**
+- **Curriculum Mapping**: Associate subjects with specific courses
+- **Enrollment Management**: Handle course-subject relationships
+- **Academic Planning**: Support curriculum design and modification
+- **Validation**: Ensure proper course and subject associations
+
+#### 9. Student Course Service (`student_course_service`)
+Handles student enrollment in courses and manages course participation.
+
+**Key Features:**
+- **Bulk Student Enrollment**: Add multiple students to courses simultaneously
+- **Enrollment Tracking**: Monitor student course participation
+- **Course Capacity Management**: Handle enrollment limits and availability
+- **Student Progress**: Track student advancement through courses
+- **Detailed Reporting**: Provide enrollment details with course and student information
+
+**Advanced Features:**
+- Student-course relationship management
+- Enrollment validation and conflict detection
+- Comprehensive enrollment reporting
+- Support for course changes and transfers
+
+#### 10. Student Subject Enrollment Service (`student_subject_enrollement_service`)
+Manages student enrollment in individual subjects within their courses.
+
+**Key Features:**
+- **Subject-specific Enrollment**: Handle individual subject registrations
+- **Prerequisite Management**: Ensure proper subject sequencing
+- **Academic Planning**: Support individualized learning paths
+- **Progress Tracking**: Monitor subject completion and performance
+
+#### 11. Test Enrollment Service (`test_enrollment_service`)
+Manages student registration for specific tests and assessments.
+
+**Key Features:**
+- **Test Registration**: Handle student sign-ups for assessments
+- **Capacity Management**: Control test enrollment limits
+- **Schedule Management**: Coordinate test dates and student availability
+- **Assessment Tracking**: Monitor test participation and completion
+
+### Infrastructure Services
+
+#### 12. Database Configuration Service (`database_config`)
+Provides centralized database configuration and connection management for all services.
+
+**Key Features:**
+- **Centralized Configuration**: Single source of truth for database settings
+- **Connection Management**: Standardized database connection handling
+- **Configuration Validation**: Ensure proper database connectivity
+- **Security**: Secure credential management for database access
+
+**Configuration Management:**
+- Host, port, username, password, and database name configuration
+- Environment-specific settings support
+- Connection pooling and optimization
+- Database migration and schema management support
 
 ## License and Credits
 
@@ -470,14 +511,6 @@ This School Performance Analysis System is developed for educational purposes as
 
 **Development Team:** 
 - Built for educational institutions to improve academic performance tracking and analysis
-
-## Support and Documentation
-
-For additional documentation, examples, and support:
-- Check the individual module README files for service-specific documentation
-- Review the test scripts for API usage examples
-- Examine the schema.sql for database structure details
-- Refer to the Config.toml for configuration options
 
 ## Future Enhancements
 

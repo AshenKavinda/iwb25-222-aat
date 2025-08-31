@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "a101962a-5177-4e8f-a234-2aeb5d477fba",
+		"name": "student_course_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-a101962a-5177-4e8f-a234-2aeb5d477fba?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"course_id\": 12,\r\n    \"student_ids\": [4,5],\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Students in Course",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course/course/12",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course",
+						"course",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Courses for Student",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course/student/4",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course",
+						"student",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Course by Record ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Courses with Details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course/student/4/details",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course",
+						"student",
+						"4",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Course Students with Details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course/course/12/details",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course",
+						"course",
+						"12",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student Course Record",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY1MzM0NjYsICJuYmYiOjE3NTY1Mjk4NjYsICJpYXQiOjE3NTY1Mjk4NjYsICJqdGkiOiIwMWYwODU1ZC1kZTgyLTEwMTYtOWYwNS05ZDE4MDExM2E5MDEiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zInhqKN2mgbTdsX-_59j_N7cuNQE0IkrbpBRKv6xcPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/student-course/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student-course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

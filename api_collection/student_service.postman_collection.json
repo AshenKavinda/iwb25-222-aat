@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "abc01a78-965c-4fc9-a27b-62c8d5d0f3ae",
+		"name": "student_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-abc01a78-965c-4fc9-a27b-62c8d5d0f3ae?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda hemarathna\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/student/5",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda hemarathna\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student/5",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restore",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda hemarathna\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student/5/restore",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"5",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleted",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda hemarathna\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student/deleted",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"deleted"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda hemarathna\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"parent_nic\": \"200307200526\",\r\n    \"full_name\": \"Ashen Kavinda hemarathna\",\r\n    \"dob\": \"2005-01-15\",\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/student/4",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMjMzNjQsICJuYmYiOjE3NTYwMTk3NjQsICJpYXQiOjE3NTYwMTk3NjQsICJqdGkiOiIwMWYwODBiYS0zMjA1LTFkMjAtODQ0MS0wNzU4YzMwOTYwYzIiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.kwfPTTT_VkwVZFs3hZ6sd65BItAh3WUMXY7Z8Mb2DHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/student/search?name=j",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "j"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
