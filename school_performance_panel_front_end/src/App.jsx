@@ -8,6 +8,7 @@ import Dashboard from './components/dashboards/Dashboard';
 import Profile from './components/profile/Profile';
 import UpdateMarks from './components/teacher/UpdateMarks';
 import StudentManagement from './components/students/StudentManagement';
+import SubjectManagement from './components/subjects/SubjectManagement';
 import { useAuth } from './hooks/useAuth';
 import './App.css';
 
@@ -68,6 +69,15 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <StudentManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/subjects" 
+        element={
+          <ProtectedRoute>
+            <SubjectManagement />
           </ProtectedRoute>
         } 
       />
