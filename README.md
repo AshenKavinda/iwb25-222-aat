@@ -55,20 +55,7 @@ The system provides RESTful APIs for each service. All endpoints require appropr
 
 ### Key API Endpoints
 
-# The api_collection directory contains the entire API collection.
-
-## Database Schema
-
-The system uses a comprehensive MySQL database schema with the following key tables:
-
-- **users** - System users (managers, teachers, officers, guests)
-- **students** - Student information and profiles
-- **courses** - Course definitions and details
-- **subjects** - Subject information
-- **tests** - Test and assessment definitions
-- **enrollments** - Various enrollment relationships
-- **test_results** - Student test scores and results
-- **reports** - Generated performance reports
+## The api_collection directory contains the entire API collection.
 
 ## Performance Analytics Features
 
