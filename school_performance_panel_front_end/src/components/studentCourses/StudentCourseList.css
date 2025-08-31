@@ -1,0 +1,355 @@
+/* Student Course List Styles */
+.student-course-list {
+  padding: 24px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.list-stats {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.total-count {
+  font-weight: 500;
+}
+
+/* Table Styles */
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.enrollments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: white;
+}
+
+.enrollments-table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.enrollments-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.enrollments-table th.sortable:hover {
+  background-color: #e9ecef;
+}
+
+.enrollments-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+  color: #000000;
+}
+
+.enrollments-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.enrollment-row {
+  transition: background-color 0.2s;
+}
+
+/* Column Specific Styles */
+.record-id {
+  font-weight: 600;
+  color: #007bff;
+  font-family: monospace;
+}
+
+.student-info, .course-info {
+  max-width: 200px;
+}
+
+.student-details, .course-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.student-name, .course-name {
+  font-weight: 500;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.student-id, .course-id {
+  font-size: 11px;
+  color: #6c757d;
+  font-family: monospace;
+  margin: 0;
+}
+
+.course-year {
+  text-align: center;
+}
+
+.year-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+}
+
+.date-info {
+  color: #6c757d;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.actions-column {
+  width: 120px;
+  text-align: center;
+}
+
+.actions {
+  text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.action-buttons .btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 60px;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+  border-color: #545b62;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #545b62;
+  transform: translateY(-1px);
+  border-color: #495057;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border-color: #c82333;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  border-color: #bd2130;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.pagination-info {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.pagination-btn {
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  background: white;
+  color: #495057;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination-ellipsis {
+  padding: 8px 4px;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px 0;
+  color: #495057;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-course-list {
+    padding: 16px;
+  }
+
+  .enrollments-table {
+    font-size: 12px;
+  }
+
+  .enrollments-table th,
+  .enrollments-table td {
+    padding: 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .student-info, .course-info {
+    max-width: 150px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pagination-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-course-list {
+    padding: 12px;
+  }
+
+  .enrollments-table th,
+  .enrollments-table td {
+    padding: 6px;
+    font-size: 11px;
+  }
+
+  .student-info, .course-info {
+    max-width: 120px;
+  }
+
+  .student-name, .course-name {
+    font-size: 12px;
+  }
+
+  .student-id, .course-id {
+    font-size: 10px;
+  }
+
+  .year-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .date-info {
+    font-size: 11px;
+  }
+
+  .record-id {
+    font-size: 11px;
+  }
+}

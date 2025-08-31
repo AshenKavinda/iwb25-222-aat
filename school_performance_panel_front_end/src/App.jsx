@@ -8,6 +8,11 @@ import Dashboard from './components/dashboards/Dashboard';
 import Profile from './components/profile/Profile';
 import UpdateMarks from './components/teacher/UpdateMarks';
 import StudentManagement from './components/students/StudentManagement';
+import SubjectManagement from './components/subjects/SubjectManagement';
+import CourseManagement from './components/courses/CourseManagement';
+import TestManagement from './components/tests/TestManagement';
+import UserManagement from './components/users/UserManagement';
+import StudentCourseManagement from './components/studentCourses/StudentCourseManagement';
 import { useAuth } from './hooks/useAuth';
 import './App.css';
 
@@ -64,10 +69,55 @@ const AppRoutes = () => {
       />
       
       <Route 
+        path="/users" 
+        element={
+          <ProtectedRoute>
+            <UserManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
         path="/students" 
         element={
           <ProtectedRoute>
             <StudentManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/subjects" 
+        element={
+          <ProtectedRoute>
+            <SubjectManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/courses" 
+        element={
+          <ProtectedRoute>
+            <CourseManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/tests" 
+        element={
+          <ProtectedRoute>
+            <TestManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/student-courses" 
+        element={
+          <ProtectedRoute>
+            <StudentCourseManagement />
           </ProtectedRoute>
         } 
       />
