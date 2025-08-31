@@ -55,7 +55,7 @@ The system provides RESTful APIs for each service. All endpoints require appropr
 
 ### Key API Endpoints
 
-## The api_collection directory contains the entire API collection.
+## The api_collection directory contains the entire API collection (POSTMAN).
 
 ## Performance Analytics Features
 
