@@ -8,6 +8,12 @@ const OfficerDashboard = () => {
 
   const managementCards = [
     {
+      title: 'Users',
+      description: 'Manage user accounts and profiles',
+      link: '/users',
+      icon: '👤'
+    },
+    {
       title: 'Students',
       description: 'Manage student records and enrollments',
       link: '/students',
@@ -78,8 +84,8 @@ const OfficerDashboard = () => {
 
       <main className="dashboard-main">
         <div className="dashboard-grid">
-          {managementCards.map((card, index) => (
-            <Link to={card.link} key={index} className="dashboard-card">
+          {managementCards.map((card) => (
+            <Link to={card.link} key={card.title} className="dashboard-card">
               <div className="card-icon">{card.icon}</div>
               <h3 className="card-title">{card.title}</h3>
               <p className="card-description">{card.description}</p>
