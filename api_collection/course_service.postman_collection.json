@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "099206cb-7517-4844-a004-f169d1fa764a",
+		"name": "course_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-099206cb-7517-4844-a004-f169d1fa764a?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"9\",\r\n  \"hall\": \"C\",\r\n  \"year\": 2024,\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/course",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course/12",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"8\",\r\n  \"hall\": \"C\",\r\n  \"year\": \"2025\",\r\n  \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/course/12",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"8\",\r\n  \"hall\": \"C\",\r\n  \"year\": \"2025\",\r\n  \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/course/12",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleted",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course/deleted",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"deleted"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restore",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"8\",\r\n  \"hall\": \"C\",\r\n  \"year\": \"2025\",\r\n  \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/course/12/restore",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"12",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "avilable_years",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course/years",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"years"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course/search/name/8",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"search",
+						"name",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_year",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course/search/year/2024",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"search",
+						"year",
+						"2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_name_year",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/course/search/name/8/year/2025",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"search",
+						"name",
+						"8",
+						"year",
+						"2025"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

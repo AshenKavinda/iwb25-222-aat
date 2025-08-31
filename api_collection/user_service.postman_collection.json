@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "ae2156de-1ab0-4f35-948b-eeed6a7b647d",
+		"name": "user_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-ae2156de-1ab0-4f35-948b-eeed6a7b647d?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY2MTgzODUsICJuYmYiOjE3NTY2MTQ3ODUsICJpYXQiOjE3NTY2MTQ3ODUsICJqdGkiOiIwMWYwODYyMy05NjJkLTExNmUtOGJmNy1hNGYxNjMzM2FjNGMiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.LW07z5z0k_M2Agt9hjIpuzz7UwwQhb_v5KQ5BcL5XJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"manager1@example.com\",\r\n    \"password\": \"password123\",\r\n    \"role\": \"manager\",\r\n    \"name\": \"John Doe\",\r\n    \"phone_number\": \"+1234567890\",\r\n    \"dob\": \"1990-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/user",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMTIwODMsICJuYmYiOjE3NTYwMDg0ODMsICJpYXQiOjE3NTYwMDg0ODMsICJqdGkiOiIwMWYwODA5Zi1lZDZkLTEzZDYtYjZjNS01ZWE1ZmY3YjYxNTgiLCAidXNlcl9pZCI6NCwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zYVjsAbmwtDHI7brLATwdPfZhrexCDBlQJrj57gpk8c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"manager\",\r\n    \"name\": \"John Doe ashen\",\r\n    \"phone_number\": \"+1234567890\",\r\n    \"dob\": \"1990-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/user/9",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMTIwODMsICJuYmYiOjE3NTYwMDg0ODMsICJpYXQiOjE3NTYwMDg0ODMsICJqdGkiOiIwMWYwODA5Zi1lZDZkLTEzZDYtYjZjNS01ZWE1ZmY3YjYxNTgiLCAidXNlcl9pZCI6NCwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zYVjsAbmwtDHI7brLATwdPfZhrexCDBlQJrj57gpk8c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"manager\",\r\n    \"name\": \"John Doe ashen\",\r\n    \"phone_number\": \"+1234567890\",\r\n    \"dob\": \"1990-01-01\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/user/9",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restore",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMTIwODMsICJuYmYiOjE3NTYwMDg0ODMsICJpYXQiOjE3NTYwMDg0ODMsICJqdGkiOiIwMWYwODA5Zi1lZDZkLTEzZDYtYjZjNS01ZWE1ZmY3YjYxNTgiLCAidXNlcl9pZCI6NCwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zYVjsAbmwtDHI7brLATwdPfZhrexCDBlQJrj57gpk8c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/user/9/restore",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"9",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTY2MTgzODUsICJuYmYiOjE3NTY2MTQ3ODUsICJpYXQiOjE3NTY2MTQ3ODUsICJqdGkiOiIwMWYwODYyMy05NjJkLTExNmUtOGJmNy1hNGYxNjMzM2FjNGMiLCAidXNlcl9pZCI6MiwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.LW07z5z0k_M2Agt9hjIpuzz7UwwQhb_v5KQ5BcL5XJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/user",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMTIwODMsICJuYmYiOjE3NTYwMDg0ODMsICJpYXQiOjE3NTYwMDg0ODMsICJqdGkiOiIwMWYwODA5Zi1lZDZkLTEzZDYtYjZjNS01ZWE1ZmY3YjYxNTgiLCAidXNlcl9pZCI6NCwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zYVjsAbmwtDHI7brLATwdPfZhrexCDBlQJrj57gpk8c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/user/9",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleted",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMTIwODMsICJuYmYiOjE3NTYwMDg0ODMsICJpYXQiOjE3NTYwMDg0ODMsICJqdGkiOiIwMWYwODA5Zi1lZDZkLTEzZDYtYjZjNS01ZWE1ZmY3YjYxNTgiLCAidXNlcl9pZCI6NCwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zYVjsAbmwtDHI7brLATwdPfZhrexCDBlQJrj57gpk8c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/user/deleted",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"deleted"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsICJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzY2hvb2wtcGVyZm9ybWFuY2UtYXV0aCIsICJzdWIiOiJvZmZpY2VyQGV4YW1wbGUuY29tIiwgImF1ZCI6WyJzY2hvb2wtcGVyZm9ybWFuY2UtYXBpIl0sICJleHAiOjE3NTYwMTIwODMsICJuYmYiOjE3NTYwMDg0ODMsICJpYXQiOjE3NTYwMDg0ODMsICJqdGkiOiIwMWYwODA5Zi1lZDZkLTEzZDYtYjZjNS01ZWE1ZmY3YjYxNTgiLCAidXNlcl9pZCI6NCwgImVtYWlsIjoib2ZmaWNlckBleGFtcGxlLmNvbSIsICJyb2xlIjoib2ZmaWNlciIsICJ0eXBlIjoiYWNjZXNzIn0.zYVjsAbmwtDHI7brLATwdPfZhrexCDBlQJrj57gpk8c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/user/search?email=manager",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"search"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "manager"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

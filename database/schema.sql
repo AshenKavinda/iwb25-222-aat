@@ -15,18 +15,6 @@ CREATE TABLE user (
     
 );
 
-INSERT INTO user (user_id, email, password, role, created_at, updated_at, deleted_at)
-VALUES (
-    2,
-    'officer@example.com',
-    'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f',
-    'officer',
-    '2025-08-24 12:41:18',
-    '2025-08-24 12:41:18',
-    NULL
-);
--- password : password123 --
-
 CREATE TABLE profile (
     profile_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,

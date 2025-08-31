@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "f32c377f-c795-46b7-8ebc-2f2117d69148",
+		"name": "subject_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48049752",
+		"_collection_link": "https://ead-cw.postman.co/workspace/school_performance_panel~211a27f2-9bac-4efe-8072-9b6c9300c62e/collection/39701596-f32c377f-c795-46b7-8ebc-2f2117d69148?action=share&source=collection_link&creator=48049752"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"science\",\r\n    \"weight\": 6.0,\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/subject",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/subject",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/subject/4",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"English Literature\",\r\n    \"weight\": 5.0,\r\n    \"user_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/subject/4",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"English Literature\",\r\n    \"weight\": 5.0,\r\n    \"user_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{base}}/api/subject/4",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleted",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/subject/deleted",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject",
+						"deleted"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restore",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/subject/4/restore",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject",
+						"4",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base}}/api/subject/search/ph",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"subject",
+						"search",
+						"ph"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
