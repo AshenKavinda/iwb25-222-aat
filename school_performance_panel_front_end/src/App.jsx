@@ -12,6 +12,7 @@ import SubjectManagement from './components/subjects/SubjectManagement';
 import CourseManagement from './components/courses/CourseManagement';
 import TestManagement from './components/tests/TestManagement';
 import UserManagement from './components/users/UserManagement';
+import StudentCourseManagement from './components/studentCourses/StudentCourseManagement';
 import { useAuth } from './hooks/useAuth';
 import './App.css';
 
@@ -108,6 +109,15 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <TestManagement />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/student-courses" 
+        element={
+          <ProtectedRoute>
+            <StudentCourseManagement />
           </ProtectedRoute>
         } 
       />
