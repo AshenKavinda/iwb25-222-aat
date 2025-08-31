@@ -169,30 +169,36 @@ The system uses a comprehensive MySQL database schema with the following key tab
 
 ## System Configuration
 
-### Database Configuration
-Update `Config.toml` with your MySQL database settings:
+### Configuration File Setup
+Create your `Config.toml` file with the following structure:
 
 ```toml
+# Shared Database Configuration (used by all services)
+[ashen.school_performance_panel.database_config]
 DB_HOST = "127.0.0.1"
 DB_PORT = 3306
 DB_USERNAME = "root"
 DB_PASSWORD = "your_password"
-DB_NAME = "school_performance"
+DB_NAME = "school_performance_2"
+
+# JWT Configuration for authentication_service module  
+[ashen.school_performance_panel.authentication_service]
+JWT_SECRET = "school-performance-jwt-secret-key-change-this-in-production-make-it-longer-and-more-secure-for-better-security"
+ACCESS_TOKEN_EXPIRY_TIME = 3600  # 1 hour in seconds
+REFRESH_TOKEN_EXPIRY_TIME = 604800  # 7 days in seconds
 ```
 
-### JWT Configuration
-```toml
-JWT_SECRET = "your-secret-key-change-this-in-production"
-ACCESS_TOKEN_EXPIRY_TIME = 3600  # 1 hour
-REFRESH_TOKEN_EXPIRY_TIME = 604800  # 7 days
-```
+### Configuration Details
 
-### Service Configuration
-```toml
-SERVER_PORT = 8080
-ENVIRONMENT = "development"
-LOG_LEVEL = "INFO"
-```
+**Database Configuration:**
+- Update the database credentials with your MySQL settings
+- Change `DB_PASSWORD` to your actual database password
+- Modify `DB_NAME` if you want to use a different database name
+
+**JWT Configuration:**
+- Change `JWT_SECRET` to a secure, long random string for production
+- `ACCESS_TOKEN_EXPIRY_TIME` is in seconds (default: 1 hour)
+- `REFRESH_TOKEN_EXPIRY_TIME` is in seconds (default: 7 days)
 
 ## System Setup and Installation
 
